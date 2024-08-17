@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 /*
 lista de comics recientes para el home
 */
-class RecientComicsHomeComponents extends StatefulWidget {
-  const RecientComicsHomeComponents({super.key});
+class ListRecientComicsHomeComponents extends StatefulWidget {
+  const ListRecientComicsHomeComponents({super.key});
 
   @override
-  State<RecientComicsHomeComponents> createState() =>
-      _RecientComicsHomeComponentsState();
+  State<ListRecientComicsHomeComponents> createState() =>
+      _ListRecientComicsHomeComponentsState();
 }
 
-class _RecientComicsHomeComponentsState
-    extends State<RecientComicsHomeComponents> {
+class _ListRecientComicsHomeComponentsState
+    extends State<ListRecientComicsHomeComponents> {
   List<String> imagesList = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9MIZFP37mKIZpG3tl5baqPkd82tYXFGQmzw&s',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6VQwhWLFiCc0NA6Uw9KMJI7I2Wq4l2hhytA&s',
@@ -51,6 +51,10 @@ class _RecientComicsHomeComponentsState
                     builder: (context) => DetailsComicsScreen(
                       id: idsList[index],
                       image: imagesList[index],
+                      name: 'DeadPool.name',
+                      date: '2034 05 20',
+                      description:
+                          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
                     ),
                   ));
             },

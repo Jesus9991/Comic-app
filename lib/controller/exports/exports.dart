@@ -1,8 +1,10 @@
+export 'package:comic_app/view/widgets/scaffold_blur_effect_widget.dart';
+export 'package:comic_app/view/components/details_comics_components.dart';
 export 'package:comic_app/view/components/characters_home_components.dart';
 export 'package:comic_app/view/components/error_image_components.dart';
 export 'package:comic_app/view/components/network_images_components.dart';
 export 'package:comic_app/view/components/cards_components.dart';
-export 'package:comic_app/view/components/recients_comics_components.dart';
+export 'package:comic_app/view/components/list_recients_comics_components.dart';
 export 'package:comic_app/view/components/all_text_title_components.dart';
 export 'package:comic_app/view/components/banners_app_components.dart';
 export 'package:comic_app/controller/paths/images_path.dart';

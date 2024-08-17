@@ -45,7 +45,7 @@ class HomeAppScreen extends StatelessWidget {
                     },
                   ),
                   //comics recientes
-                  const RecientComicsHomeComponents(),
+                  const ListRecientComicsHomeComponents(),
 
                   SizedBox(height: size.height * .02),
                   //personajes
