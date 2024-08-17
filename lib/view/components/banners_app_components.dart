@@ -1,7 +1,5 @@
-import 'package:comic_app/controller/theme/palette_colors_theme.dart';
-import 'package:comic_app/view/components/error_image_components.dart';
+import 'package:comic_app/controller/exports/exports.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class BannerHomeComponents extends StatelessWidget {
@@ -19,19 +17,10 @@ class BannerHomeComponents extends StatelessWidget {
                 SizedBox(
                   height: size.height,
                   width: size.width,
-                  child: Image.network(
-                      //Todo: conectar con base de dato
-                      'https://i.pinimg.com/736x/c5/5c/dc/c55cdca9d7684c8cf07079752e6d3350.jpg',
-                      errorBuilder: (context, error, stackTrace) =>
-                          const PlaceholderErrorImageComponents(),
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        } else {
-                          return const LoadingImagesPlaceHolderComponents();
-                        }
-                      }),
+                  //Todo: conectar con api
+                  child: ImageNetworkComponents(
+                      url:
+                          'https://i.pinimg.com/736x/c5/5c/dc/c55cdca9d7684c8cf07079752e6d3350.jpg'),
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
@@ -52,36 +41,40 @@ class BannerHomeComponents extends StatelessWidget {
                         ])),
                   ),
                 ),
+                //Todo: conectar con base de dato
                 Positioned(
                   bottom: size.height * .03,
                   left: size.width * .06,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      //productora
-                      Text(
-                        'Name.productora',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      Text(
-                        'Name.character person',
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.headlineLarge,
-                      ),
-                      Text(
-                        'Name.human | Name.creator',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ],
+                  child: SizedBox(
+                    width: size.width * .9,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        //productora
+                        Text(
+                          'Name.productora',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        Text(
+                          'Name.character person',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context).textTheme.headlineLarge,
+                        ),
+                        Text(
+                          'Name.human | Name.creator',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

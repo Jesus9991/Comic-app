@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:comic_app/controller/exports/exports.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +26,42 @@ class HomeAppScreen extends StatelessWidget {
         children: [
           //banner imagen
           const BannerHomeComponents(),
+
+          SizedBox(height: size.height * .03),
+          //lista de datos
+          Expanded(
+            child: FadeIn(
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                padding: EdgeInsets.only(left: size.width * .01),
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                children: [
+                  //comics recientes
+                  AllTextTitleComponents(
+                    title: 'Comics recientes',
+                    onTap: () {
+                      //Todo: debe llevar a ver todos los comics recientes
+                    },
+                  ),
+                  //comics recientes
+                  const RecientComicsHomeComponents(),
+
+                  SizedBox(height: size.height * .02),
+                  //personajes
+                  AllTextTitleComponents(
+                    title: 'Personajes',
+                    onTap: () {
+                      //Todo: debe llevar a ver todos los personajes
+                    },
+                  ),
+                  //Personajes
+                  const CharactersHomeComponents(),
+                  SizedBox(height: size.height * .2),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
