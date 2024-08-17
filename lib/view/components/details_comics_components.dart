@@ -93,7 +93,7 @@ class ExpandableTextComponents extends StatefulWidget {
   const ExpandableTextComponents({
     super.key,
     required this.text,
-    this.maxLines = 6,
+    this.maxLines = 5,
   });
 
   @override
@@ -160,6 +160,84 @@ class _ExpandableTextComponentsState extends State<ExpandableTextComponents> {
           ),
         );
       },
+    );
+  }
+}
+
+class MenuTapDetailsComicComponents extends StatefulWidget {
+  const MenuTapDetailsComicComponents({super.key});
+
+  @override
+  State<MenuTapDetailsComicComponents> createState() =>
+      _MenuTapDetailsComicComponentsState();
+}
+
+class _MenuTapDetailsComicComponentsState
+    extends State<MenuTapDetailsComicComponents> {
+  int indexTapSelect = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return SizedBox(
+      height: size.height * .1,
+      width: size.width,
+      child: ListView.separated(
+        physics: const BouncingScrollPhysics(),
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.symmetric(horizontal: size.width * .06),
+        itemCount: LocalsListPaths.tapsDetailsComics.length,
+        separatorBuilder: (context, index) => SizedBox(width: size.width * .05),
+        itemBuilder: (context, values) {
+          final data = LocalsListPaths.tapsDetailsComics[values];
+
+          // Calcular el ancho del texto
+          final textPainter = TextPainter(
+            text: TextSpan(
+              text: data,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            maxLines: 1,
+            textDirection: TextDirection.ltr,
+          )..layout(minWidth: 0, maxWidth: double.infinity);
+
+          final textWidth = textPainter.size.width;
+
+          return InkWell(
+            borderRadius: BorderRadius.circular(100),
+            onTap: () {
+              setState(() => indexTapSelect = values);
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  data,
+                  textAlign: TextAlign.start,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      fontSize: 13,
+                      fontWeight: indexTapSelect == values
+                          ? FontWeight.bold
+                          : FontWeight.w300),
+                ),
+                SizedBox(height: size.height * .01),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  height: size.height * .005,
+                  width: indexTapSelect == values ? textWidth : 0,
+                  decoration: BoxDecoration(
+                    color: PaletteColorsTheme.redColor.withOpacity(0.8),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

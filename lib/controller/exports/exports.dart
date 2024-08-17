@@ -1,3 +1,4 @@
+export 'package:comic_app/controller/paths/taps_details_comics_path.dart';
 export 'package:comic_app/view/widgets/scaffold_blur_effect_widget.dart';
 export 'package:comic_app/view/components/details_comics_components.dart';
 export 'package:comic_app/view/components/characters_home_components.dart';

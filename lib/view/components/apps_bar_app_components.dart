@@ -1,8 +1,10 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:comic_app/controller/exports/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class AppBarHomeComponents extends StatelessWidget {
   const AppBarHomeComponents({super.key});
@@ -126,5 +128,34 @@ class UserInformationComponents extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+/*boton para volver a tras en el appbar */
+class LeadingIconBlurAppBarComponent extends StatelessWidget {
+  const LeadingIconBlurAppBarComponent({
+    super.key,
+  });
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final isiOS = Platform.isIOS;
+    return InkWell(
+      onTap: () => Navigator.pop(context),
+      child: ClipOval(
+        child: Padding(
+          padding: EdgeInsets.only(left: size.width * .01),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+            child: Center(
+              child: Icon(
+                isiOS ? Icons.arrow_back_ios : Icons.arrow_back,
+              ),
+            ),
+          ),
+        ),
+      ).animate().fade().scale(),
+    );
+    ;
   }
 }

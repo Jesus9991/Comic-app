@@ -8,16 +8,18 @@ effecto blur para algunas pantallas
 */
 class ScaffoldDownBlurEffectWidget extends StatelessWidget {
   final Widget child;
+  final PreferredSizeWidget appBar;
   const ScaffoldDownBlurEffectWidget({
     super.key,
     required this.child,
+    required this.appBar,
   });
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(),
+      appBar: appBar,
       body: SizedBox(
         height: size.height,
         width: size.width,
