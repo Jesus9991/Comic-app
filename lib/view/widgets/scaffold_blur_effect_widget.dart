@@ -69,6 +69,7 @@ class ScaffoldUpBlurEffectWidget extends StatelessWidget {
     super.key,
     required this.child,
   });
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -80,23 +81,22 @@ class ScaffoldUpBlurEffectWidget extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              bottom: 1,
+              top: 0,
               left: 0,
               right: 0,
-              height: size.height * 1,
+              height: size.height * 0.3,
               child: ClipRect(
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 100, sigmaY: 100),
+                  filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
                           PaletteColorsTheme.redColor.withOpacity(0.3),
-                          PaletteColorsTheme.principal.withOpacity(0.01),
                           Colors.transparent,
                         ],
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
                       ),
                     ),
                   ),

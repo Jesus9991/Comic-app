@@ -46,3 +46,35 @@ class AllTextTitleComponents extends StatelessWidget {
     );
   }
 }
+
+/*
+efecto de border en el texto
+*/
+class StrokeText extends StatelessWidget {
+  final String text;
+  final double fontSize;
+  final Color strokeColor;
+  final double strokeWidth;
+
+  const StrokeText({
+    super.key,
+    required this.text,
+    required this.fontSize,
+    required this.strokeColor,
+    this.strokeWidth = 0.7,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: Theme.of(context).textTheme.displayLarge!.copyWith(
+            fontSize: fontSize,
+            foreground: Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = strokeWidth
+              ..color = strokeColor,
+          ),
+    );
+  }
+}
