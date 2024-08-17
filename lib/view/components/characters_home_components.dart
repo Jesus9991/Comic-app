@@ -1,4 +1,5 @@
 import 'package:comic_app/controller/exports/exports.dart';
+import 'package:comic_app/controller/exports/screen_exports.dart';
 import 'package:flutter/material.dart';
 
 /*
@@ -41,7 +42,16 @@ class _CharactersHomeComponentsState extends State<CharactersHomeComponents> {
             name: 'Characters name',
             date: 'Marzo 30 1995',
             image: imagesList[index],
-            onTap: () {},
+            onTap: () {
+              /*navega a los detalles del personajes*/
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailsCharacterScreen(
+                      image: imagesList[index], id: idsList[index]),
+                ),
+              );
+            },
           );
         },
       ),

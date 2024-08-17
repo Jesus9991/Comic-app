@@ -10,6 +10,7 @@ class MainRoutes {
   static const charactersRoute = '/characters_route';
   static const profileRoute = '/profile_route';
   static const allComicsRoute = '/all_comics_route';
+  static const allCharacterRoute = '/all_character_route';
 
   static Map<String, Widget Function(BuildContext)> routes = {
     /*-----RUTA INICIAL------*/
@@ -19,5 +20,6 @@ class MainRoutes {
     charactersRoute: (_) => const CharactersAppScreen(),
     profileRoute: (_) => const ProfileAppScreen(),
     allComicsRoute: (_) => const AllComicsRecentScreen(),
+    allCharacterRoute: (_) => const AllCharactersScreen(),
   };
 }

@@ -57,7 +57,11 @@ class HomeAppScreen extends StatelessWidget {
                   AllTextTitleComponents(
                     title: 'Personajes',
                     onTap: () {
-                      //Todo: debe llevar a ver todos los personajes
+                      /*navega a ver la lista de todos los personajes*/
+                      Navigator.pushNamed(
+                        context,
+                        MainRoutes.allCharacterRoute,
+                      );
                     },
                   ),
                   //Personajes

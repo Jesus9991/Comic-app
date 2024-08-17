@@ -112,12 +112,9 @@ class CardAllComicsAndCharacterComponents extends StatelessWidget {
                 color: PaletteColorsTheme.greyBlackTwo.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Hero(
-                tag: id,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: ImageNetworkComponents(url: image)),
-              ),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: ImageNetworkComponents(url: image)),
             ),
           ),
           SizedBox(width: size.width * .03),
