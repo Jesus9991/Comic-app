@@ -1,3 +1,10 @@
+export 'package:comic_app/view/components/banners_app_components.dart';
+export 'package:comic_app/controller/paths/images_path.dart';
+export 'package:comic_app/view/components/open_search_icon_components.dart';
+export 'package:comic_app/view/components/apps_bar_app_components.dart';
+export 'package:comic_app/view/widgets/navbar_app_screen_widgets.dart';
+export 'package:comic_app/controller/routes/main_routes.dart';
+export 'package:comic_app/controller/theme/main_theme.dart';
 export 'package:comic_app/controller/theme/buttons_theme.dart';
 export 'package:comic_app/controller/theme/fonts_type_theme.dart';
 export 'package:comic_app/controller/theme/app_bar_theme.dart';

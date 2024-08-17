@@ -13,4 +13,5 @@ class PaletteColorsTheme {
   static const redColor = Color(0xffF21818);
   static const greyColor = Color(0xffe5e5e5);
   static const transparent = Colors.transparent;
+  static const greyBlackTwo = Color(0xff1B1E1E);
 }
