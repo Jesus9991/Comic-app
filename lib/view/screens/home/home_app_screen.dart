@@ -15,6 +15,7 @@ class HomeAppScreen extends StatelessWidget {
       appBar: AppBar(
         title: const UserInformationComponents(),
         actions: [
+          //buscador
           OpenSearchHomeComponents(
             onTap: () {
               //Todo: debe abrir el buscador
@@ -41,7 +42,11 @@ class HomeAppScreen extends StatelessWidget {
                   AllTextTitleComponents(
                     title: 'Comics recientes',
                     onTap: () {
-                      //Todo: debe llevar a ver todos los comics recientes
+                      /*navega a ver la lista de comics recientes */
+                      Navigator.pushNamed(
+                        context,
+                        MainRoutes.allComicsRoute,
+                      );
                     },
                   ),
                   //comics recientes

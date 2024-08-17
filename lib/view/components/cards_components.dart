@@ -75,3 +75,83 @@ class CardComicsHomeComponents extends StatelessWidget {
         );
   }
 }
+
+/*
+card para la lista de todos los comics y personajes
+*/
+
+class CardAllComicsAndCharacterComponents extends StatelessWidget {
+  final int id;
+  final String name;
+  final String date;
+  final String image;
+  final Function onTap;
+  const CardAllComicsAndCharacterComponents({
+    super.key,
+    required this.id,
+    required this.name,
+    required this.date,
+    required this.image,
+    required this.onTap,
+  });
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return SizedBox(
+      height: size.height * .28,
+      width: size.width,
+      child: Row(
+        children: [
+          InkWell(
+            onTap: () => onTap(),
+            child: Container(
+              height: size.height,
+              width: size.width * .4,
+              margin: EdgeInsets.only(left: size.width * .04),
+              decoration: BoxDecoration(
+                color: PaletteColorsTheme.greyBlackTwo.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Hero(
+                tag: id,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: ImageNetworkComponents(url: image)),
+              ),
+            ),
+          ),
+          SizedBox(width: size.width * .03),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(height: size.height * .03),
+              Text(
+                name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.start,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                date,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.start,
+                style: Theme.of(context).textTheme.bodySmall,
+              )
+            ],
+          )
+        ],
+      ),
+    ).animate().fadeIn(duration: const Duration(seconds: 2)).scale(
+          begin: const Offset(1.1, 1.1), // Comienza ligeramente ampliada
+          end: const Offset(1.0, 1.0), // Termina en tamaño normal
+          duration: const Duration(seconds: 1),
+          curve: Curves.easeOut,
+        );
+  }
+}

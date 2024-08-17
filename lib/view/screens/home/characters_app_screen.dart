@@ -11,7 +11,7 @@ class CharactersAppScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         slivers: [
-          AppBarHomeComponents(),
+          const AppBarHomeComponents(title: ''),
           SliverList(
               delegate: SliverChildListDelegate([
             Image.network(

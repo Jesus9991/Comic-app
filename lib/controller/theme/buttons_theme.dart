@@ -63,7 +63,7 @@ class ButtonsMainTheme {
         PaletteColorsTheme.principal), //color de las letras */
 
     iconSize: MaterialStateProperty.all(25),
-    iconColor: MaterialStateProperty.all(PaletteColorsTheme.principal),
+    iconColor: MaterialStateProperty.all(PaletteColorsTheme.secondary),
   ));
   //: textos para el modo oscuro
 

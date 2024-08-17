@@ -43,7 +43,8 @@ class MainTheme {
     appBarTheme: AppBarMainTheme.appbarLight,
 
     iconTheme:
-        const IconThemeData(color: PaletteColorsTheme.transparent, size: 20),
+        const IconThemeData(color: PaletteColorsTheme.secondary, size: 20),
+
     textSelectionTheme:
         const TextSelectionThemeData(cursorColor: PaletteColorsTheme.secondary),
     outlinedButtonTheme: ButtonsMainTheme.outlinedButtonLight,

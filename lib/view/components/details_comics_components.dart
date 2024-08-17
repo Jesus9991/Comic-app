@@ -164,6 +164,9 @@ class _ExpandableTextComponentsState extends State<ExpandableTextComponents> {
   }
 }
 
+/*
+tap para ver los creadores, etc
+*/
 class MenuTapDetailsComicComponents extends StatefulWidget {
   const MenuTapDetailsComicComponents({super.key});
 
@@ -237,6 +240,79 @@ class _MenuTapDetailsComicComponentsState
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+/*
+lista de datos filtrada por los taps
+*/
+
+class ListsDetailsFiltForTapComponents extends StatelessWidget {
+  final String image;
+  final String name;
+  final String job;
+  const ListsDetailsFiltForTapComponents({
+    super.key,
+    required this.image,
+    required this.name,
+    required this.job,
+  });
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return SizedBox(
+      //Todo: conectar con Api
+      height: size.height * .28,
+      width: size.width,
+      child: GridView.builder(
+        itemCount: 4,
+        physics: const BouncingScrollPhysics(),
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        padding:
+            EdgeInsets.symmetric(horizontal: size.width * .00, vertical: 0),
+        itemBuilder: (context, index) {
+          return SizedBox(
+            width: size.width * .2,
+            child: Column(
+              children: [
+                Container(
+                  height: size.height * .07,
+                  width: size.width * .15,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: PaletteColorsTheme.greyBlackTwo.withOpacity(0.3),
+                  ),
+                  child: ClipOval(child: ImageNetworkComponents(url: image)),
+                ),
+                Text(
+                  name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.start,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  job,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.start,
+                  style: Theme.of(context).textTheme.bodySmall,
+                )
+              ],
+            ),
+          );
+        },
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisExtent: size.height * .15, //largo
+          mainAxisSpacing: size.height * .004, //separacipn vertical
+          crossAxisSpacing: size.width * .03, //separación horizontal
+          crossAxisCount: 3, //maximo por linea
+        ),
       ),
     );
   }
