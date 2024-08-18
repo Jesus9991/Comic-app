@@ -181,6 +181,7 @@ class CardPrincipalCharacterComponents extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           InkWell(
+            borderRadius: BorderRadius.circular(15),
             onTap: () => onTap(),
             child: Container(
               height: size.height * .3,
@@ -256,6 +257,11 @@ class CardPrincipalCharacterComponents extends StatelessWidget {
           )
         ],
       ),
-    );
+    ).animate().fadeIn(duration: const Duration(seconds: 2)).scale(
+          begin: const Offset(1.1, 1.1), // Comienza ligeramente ampliada
+          end: const Offset(1.0, 1.0), // Termina en tamaño normal
+          duration: const Duration(seconds: 1),
+          curve: Curves.easeOut,
+        );
   }
 }

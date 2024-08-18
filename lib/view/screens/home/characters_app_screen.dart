@@ -6,14 +6,33 @@ class CharactersAppScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return const ScaffoldUpBlurEffectWidget(
+    return ScaffoldUpBlurEffectWidget(
       child: CustomScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         slivers: [
-          AppBarHomeComponents(title: ''),
+          const AppBarHomeComponents(title: ''),
           //personajes principales
-          ListPrincipalCharactersComponents(),
+          const ListPrincipalCharactersComponents(),
+          //
+          SliverList(
+              delegate: SliverChildListDelegate([
+            SizedBox(height: size.height * .02),
+            //personajes
+            AllTextTitleComponents(
+              title: 'Personajes',
+              onTap: () {
+                /*navega a ver la lista de todos los personajes*/
+                Navigator.pushNamed(
+                  context,
+                  MainRoutes.allCharacterRoute,
+                );
+              },
+            ),
+            //Personajes
+            const ListCharactersHomeComponents(),
+            SizedBox(height: size.height * .2),
+          ]))
         ],
       ),
     );

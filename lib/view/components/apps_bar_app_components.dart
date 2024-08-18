@@ -144,6 +144,7 @@ class LeadingIconBlurAppBarComponent extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final isiOS = Platform.isIOS;
     return InkWell(
+      borderRadius: BorderRadius.circular(100),
       onTap: () => Navigator.pop(context),
       child: ClipOval(
         child: Padding(

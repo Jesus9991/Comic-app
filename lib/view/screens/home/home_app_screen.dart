@@ -65,7 +65,7 @@ class HomeAppScreen extends StatelessWidget {
                     },
                   ),
                   //Personajes
-                  const CharactersHomeComponents(),
+                  const ListCharactersHomeComponents(),
                   SizedBox(height: size.height * .2),
                 ],
               ),

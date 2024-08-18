@@ -5,15 +5,16 @@ import 'package:flutter/material.dart';
 /*
 lista de personajes en el home
 */
-class CharactersHomeComponents extends StatefulWidget {
-  const CharactersHomeComponents({super.key});
+class ListCharactersHomeComponents extends StatefulWidget {
+  const ListCharactersHomeComponents({super.key});
 
   @override
-  State<CharactersHomeComponents> createState() =>
-      _CharactersHomeComponentsState();
+  State<ListCharactersHomeComponents> createState() =>
+      _ListCharactersHomeComponentsState();
 }
 
-class _CharactersHomeComponentsState extends State<CharactersHomeComponents> {
+class _ListCharactersHomeComponentsState
+    extends State<ListCharactersHomeComponents> {
   List<String> imagesList = [
     'https://cdn.marvel.com/content/1x/savwolvinfc2024001_resized.jpg',
     'https://http2.mlstatic.com/D_NQ_NP_731572-CBT76048785527_042024-O.webp',
