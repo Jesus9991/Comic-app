@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:comic_app/controller/exports/exports.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /*
 manejo de los detalles de un comic
@@ -182,97 +183,134 @@ class _MenuTapDetailsComicComponentsState
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return SizedBox(
-      height: size.height * .1,
-      width: size.width,
-      child: ListView.separated(
-        physics: const BouncingScrollPhysics(),
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: size.width * .06),
-        itemCount: LocalsListPaths.tapsDetailsComics.length,
-        separatorBuilder: (context, index) => SizedBox(width: size.width * .05),
-        itemBuilder: (context, values) {
-          final data = LocalsListPaths.tapsDetailsComics[values];
+    return Consumer<HomeAppProvider>(
+      builder: (context, prv, child) {
+        List<dynamic> items = [];
+        switch (indexTapSelect) {
+          case 0:
+            items = prv.credits;
+            break;
+          case 1:
+            items = prv.charactersCredits;
+            break;
+          case 2:
+            items = prv.teamCredits;
+            break;
+          case 3:
+            items = prv.locationsCredits;
+            break;
+          case 4:
+            items = prv.conceptCredits;
+            break;
+          default:
+            items = [];
+        }
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //menu tap
+            SizedBox(
+              height: size.height * .1,
+              width: size.width,
+              child: ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.symmetric(horizontal: size.width * .06),
+                itemCount: LocalsListPaths.tapsDetailsComics.length,
+                separatorBuilder: (context, index) =>
+                    SizedBox(width: size.width * .05),
+                itemBuilder: (context, values) {
+                  final data = LocalsListPaths.tapsDetailsComics[values];
 
-          // Calcular el ancho del texto
-          final textPainter = TextPainter(
-            text: TextSpan(
-              text: data,
-              style: Theme.of(context).textTheme.headlineSmall,
+                  // Calcular el ancho del texto
+                  final textPainter = TextPainter(
+                    text: TextSpan(
+                      text: data,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    maxLines: 1,
+                    textDirection: TextDirection.ltr,
+                  )..layout(minWidth: 0, maxWidth: double.infinity);
+
+                  final textWidth = textPainter.size.width;
+
+                  return InkWell(
+                    borderRadius: BorderRadius.circular(100),
+                    onTap: () {
+                      setState(() => indexTapSelect = values);
+                      /*tap para el menu */
+                      prv.setChangeMenuTap(indexTapSelect);
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          data,
+                          textAlign: TextAlign.start,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(
+                                  fontSize: 13,
+                                  fontWeight: indexTapSelect == values
+                                      ? FontWeight.bold
+                                      : FontWeight.w300),
+                        ),
+                        SizedBox(height: size.height * .01),
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          height: size.height * .005,
+                          width: indexTapSelect == values ? textWidth : 0,
+                          decoration: BoxDecoration(
+                            color: PaletteColorsTheme.redColor.withOpacity(0.8),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
-            maxLines: 1,
-            textDirection: TextDirection.ltr,
-          )..layout(minWidth: 0, maxWidth: double.infinity);
-
-          final textWidth = textPainter.size.width;
-
-          return InkWell(
-            borderRadius: BorderRadius.circular(100),
-            onTap: () {
-              setState(() => indexTapSelect = values);
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  data,
-                  textAlign: TextAlign.start,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      fontSize: 13,
-                      fontWeight: indexTapSelect == values
-                          ? FontWeight.bold
-                          : FontWeight.w300),
-                ),
-                SizedBox(height: size.height * .01),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  height: size.height * .005,
-                  width: indexTapSelect == values ? textWidth : 0,
-                  decoration: BoxDecoration(
-                    color: PaletteColorsTheme.redColor.withOpacity(0.8),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+            // Lista con cada filtro dependiendo del "tap seleccionado"
+            if (items.isNotEmpty)
+              _MenuTapDataComponents(
+                items: items,
+              ),
+            if (items.isEmpty)
+              const IsEmptyComponents(title: 'No se encontraron resultados.'),
+          ],
+        );
+      },
     );
   }
 }
 
-/*
-lista de datos filtrada por los taps
-*/
+class _MenuTapDataComponents extends StatelessWidget {
+  final List<dynamic> items;
 
-class ListsDetailsFiltForTapComponents extends StatelessWidget {
-  final String image;
-  final String name;
-  final String job;
-  const ListsDetailsFiltForTapComponents({
-    super.key,
-    required this.image,
-    required this.name,
-    required this.job,
+  const _MenuTapDataComponents({
+    required this.items,
   });
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return SizedBox(
-      //Todo: conectar con Api
       height: size.height * .28,
       width: size.width,
       child: GridView.builder(
-        itemCount: 4,
+        itemCount: items.length,
         physics: const BouncingScrollPhysics(),
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         padding:
             EdgeInsets.symmetric(horizontal: size.width * .00, vertical: 0),
         itemBuilder: (context, index) {
+          final item = items[index];
           return SizedBox(
             width: size.width * .2,
             child: Column(
@@ -284,10 +322,11 @@ class ListsDetailsFiltForTapComponents extends StatelessWidget {
                     shape: BoxShape.circle,
                     color: PaletteColorsTheme.greyBlackTwo.withOpacity(0.3),
                   ),
-                  child: ClipOval(child: ImageNetworkComponents(url: image)),
+                  child: ClipOval(
+                      child: ImageNetworkComponents(url: item["image"] ?? '')),
                 ),
                 Text(
-                  name,
+                  item["name"] ?? '',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.start,
@@ -297,21 +336,21 @@ class ListsDetailsFiltForTapComponents extends StatelessWidget {
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  job,
+                  item["role"] ?? '',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.start,
                   style: Theme.of(context).textTheme.bodySmall,
-                )
+                ),
               ],
             ),
           );
         },
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisExtent: size.height * .15, //largo
-          mainAxisSpacing: size.height * .004, //separacipn vertical
-          crossAxisSpacing: size.width * .03, //separación horizontal
-          crossAxisCount: 3, //maximo por linea
+          mainAxisExtent: size.height * .15, // Largo
+          mainAxisSpacing: size.height * .004, // Separación vertical
+          crossAxisSpacing: size.width * .03, // Separación horizontal
+          crossAxisCount: 3, // Máximo por línea
         ),
       ),
     );

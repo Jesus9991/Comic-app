@@ -24,6 +24,7 @@ class HomeAppProvider extends ChangeNotifier {
   HomeAppProvider() {
     getDataCharacterMain();
     getListComicsRecents();
+
     // getListCharacters();
   }
 
@@ -79,7 +80,7 @@ class HomeAppProvider extends ChangeNotifier {
   bool get isLoadinComics => _isLoadinComics;
   String? get errorMessageComics => _errorMessageComics;
 
-// **OBTIENE LA LISTA DE COMICS RECIENTE*/
+//*OBTIENE LA LISTA DE COMICS RECIENTE*/
   Future<void> getListComicsRecents() async {
     if (_cachedComics!.isNotEmpty) {
       // Si ya hay datos en caché, no se hace la petición
@@ -103,7 +104,7 @@ class HomeAppProvider extends ChangeNotifier {
             results.map((comic) => ComicsHomeModels.fromJson(comic)).toList();
 
         _errorMessageComics = null;
-        log('Primer comic en la lista: ${_cachedComics?.first.issueNumber}');
+        log('Primer comic en la lista: ${_cachedComics?.first.id}');
       } else {
         _errorMessageComics = 'Error en la solicitud: ${response.statusCode}';
       }
@@ -113,6 +114,79 @@ class HomeAppProvider extends ChangeNotifier {
     } finally {
       _isLoadinComics = false;
       notifyListeners();
+    }
+  }
+
+  // Listas para créditos
+  List<PersonCredits> _credits = [];
+  List<CharactersCredits> _charactersCredits = [];
+  List<TeamCredits> _teamCredits = [];
+  List<LocationsCredits> _locationsCredits = [];
+  List<ConceptCredits> _conceptCredits = [];
+
+  List<PersonCredits> get credits => _credits;
+  List<CharactersCredits> get charactersCredits => _charactersCredits;
+  List<TeamCredits> get teamCredits => _teamCredits;
+  List<LocationsCredits> get locationsCredits => _locationsCredits;
+  List<ConceptCredits> get conceptCredits => _conceptCredits;
+
+  // Método para manejar el cambio de tap
+  void setChangeMenuTap(int index) {
+    // Limpiar las listas no relevantes
+    switch (index) {
+      case 0:
+        // Mostrar cómics y limpiar las demás listas
+        _credits.clear();
+        _charactersCredits.clear();
+        _teamCredits.clear();
+        _locationsCredits.clear();
+        _conceptCredits.clear();
+        notifyListeners();
+        break;
+      case 1:
+        // Mostrar créditos de personajes y limpiar las demás listas
+        _charactersCredits = []; // Aquí debes cargar los datos necesarios
+        _credits.clear();
+        _teamCredits.clear();
+        _locationsCredits.clear();
+        _conceptCredits.clear();
+        notifyListeners();
+        break;
+      case 2:
+        // Mostrar créditos de equipo y limpiar las demás listas
+        _teamCredits = []; // Aquí debes cargar los datos necesarios
+        _credits.clear();
+        _charactersCredits.clear();
+        _locationsCredits.clear();
+        _conceptCredits.clear();
+        notifyListeners();
+        break;
+      case 3:
+        // Mostrar créditos de ubicaciones y limpiar las demás listas
+        _locationsCredits = []; // Aquí debes cargar los datos necesarios
+        _credits.clear();
+        _charactersCredits.clear();
+        _teamCredits.clear();
+        _conceptCredits.clear();
+        notifyListeners();
+        break;
+      case 4:
+        // Mostrar créditos de conceptos y limpiar las demás listas
+        _conceptCredits = []; // Aquí debes cargar los datos necesarios
+        _credits.clear();
+        _charactersCredits.clear();
+        _teamCredits.clear();
+        _locationsCredits.clear();
+        notifyListeners();
+        break;
+      default:
+        // Manejar casos por defecto si es necesario
+        _credits.clear();
+        _charactersCredits.clear();
+        _teamCredits.clear();
+        _locationsCredits.clear();
+        _conceptCredits.clear();
+        notifyListeners();
     }
   }
 }

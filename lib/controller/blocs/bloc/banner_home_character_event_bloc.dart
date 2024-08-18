@@ -43,7 +43,7 @@ class BannerHomeCharacterBloc
     }
   }
 
-  String _handleHttpError(int statusCode) {
+  String handleHttpError(int statusCode) {
     switch (statusCode) {
       case 400:
         return 'Bad request. The server could not understand the request.';

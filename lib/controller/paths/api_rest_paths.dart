@@ -20,8 +20,8 @@ class ObteinValueApi {
     return '${ApiRestPath.httpDomain}${ApiRestPath.search}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,image,name,origin,publisher,real_name,name&query=$characterName';
   }
 
-  //#2 obtiene el formato para los comics del home
+  // #2 obtiene el formato para los comics del home
   static String getComicsHome() {
-    return '${ApiRestPath.httpDomain}${ApiRestPath.comicsHome}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,description,image,volume,cover_date&sort=cover_date:desc&limit=10&error="OK"';
+    return '${ApiRestPath.httpDomain}${ApiRestPath.comicsHome}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,volume,issue_number,cover_date,description,image,credits,characters,teams,locations,concepts&sort=cover_date:desc&limit=10&error="OK"';
   }
 }

@@ -51,7 +51,7 @@ class _ListRecientComicsHomeComponentsState
                     MaterialPageRoute(
                       builder: (context) => DetailsComicsScreen(
                         id: list.id,
-                        name: '${list.name.name} ${list.issueNumber}',
+                        name: '${list.name.name} #${list.issueNumber}',
                         date: list.coverDate,
                         image: list.imageUrl,
                         description: list.description,
