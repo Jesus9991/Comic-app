@@ -17,7 +17,6 @@ class CharactersAppScreen extends StatelessWidget {
           //
           SliverList(
               delegate: SliverChildListDelegate([
-            SizedBox(height: size.height * .02),
             //personajes
             AllTextTitleComponents(
               title: 'Personajes',

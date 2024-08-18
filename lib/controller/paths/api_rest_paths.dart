@@ -10,13 +10,18 @@ class ApiRestPath {
   //paths
   static const String characters = '/characters';
   static const String search = '/search';
+  static const String comicsHome = '/issues';
 }
 
 //obtiene los valores formateados
 class ObteinValueApi {
-  //obtener formatados de la API
+  //#1 obtiene el formato de el banner del home
   static String getCharacterUrl(String characterName) {
-    //Obtiene el formato de el banner del home
     return '${ApiRestPath.httpDomain}${ApiRestPath.search}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,image,name,origin,publisher,real_name,name&query=$characterName';
+  }
+
+  //#2 obtiene el formato para los comics del home
+  static String getComicsHome() {
+    return '${ApiRestPath.httpDomain}${ApiRestPath.comicsHome}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,description,image,volume,cover_date&sort=cover_date:desc&limit=10&error="OK"';
   }
 }

@@ -6,7 +6,11 @@ import 'package:flutter/material.dart';
 lista de comics recientes para el home
 */
 class ListRecientComicsHomeComponents extends StatefulWidget {
-  const ListRecientComicsHomeComponents({super.key});
+  final HomeAppProvider data;
+  const ListRecientComicsHomeComponents({
+    super.key,
+    required this.data,
+  });
 
   @override
   State<ListRecientComicsHomeComponents> createState() =>
@@ -15,52 +19,49 @@ class ListRecientComicsHomeComponents extends StatefulWidget {
 
 class _ListRecientComicsHomeComponentsState
     extends State<ListRecientComicsHomeComponents> {
-  List<String> imagesList = [
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9MIZFP37mKIZpG3tl5baqPkd82tYXFGQmzw&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6VQwhWLFiCc0NA6Uw9KMJI7I2Wq4l2hhytA&s',
-    'https://cdn.marvel.com/content/1x/hulk2023014_weaponxtraction.jpg',
-  ];
-
-  List<int> idsList = [15, 32, 34];
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return SizedBox(
-      height: size.height * .3,
-      width: size.width,
-      child: ListView.separated(
-        //Todo: conectar con api para obtener una lista de 10 comics
-        itemCount: imagesList.length,
-        scrollDirection: Axis.horizontal,
-        physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.only(left: size.width * .05),
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        separatorBuilder: (context, index) => SizedBox(width: size.width * .04),
-        itemBuilder: (context, index) {
-          return CardComicsHomeComponents(
-            id: idsList[index],
-            name: 'Comics name',
-            date: 'Marzo 30 1995',
-            image: imagesList[index],
-            onTap: () {
-              /*navega ver los detalles del comic*/
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetailsComicsScreen(
-                      id: idsList[index],
-                      image: imagesList[index],
-                      name: 'DeadPool.name',
-                      date: '2034 05 20',
-                      description:
-                          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-                    ),
-                  ));
-            },
-          );
-        },
-      ),
-    );
+
+    if (widget.data.cachedComics == null || widget.data.cachedComics == []) {
+      return const SizedBox();
+    } else {
+      return SizedBox(
+        height: size.height * .3,
+        width: size.width,
+        child: ListView.separated(
+          itemCount: widget.data.cachedComics?.length ?? 0,
+          scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.only(left: size.width * .05),
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          separatorBuilder: (context, index) =>
+              SizedBox(width: size.width * .04),
+          itemBuilder: (context, index) {
+            final list = widget.data.cachedComics?[index];
+            return CardComicsHomeComponents(
+              id: list!.id,
+              name: '${list.name.name} #${list.issueNumber}',
+              date: list.coverDate,
+              image: list.imageUrl,
+              onTap: () {
+                /*navega ver los detalles del comic*/
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailsComicsScreen(
+                        id: list.id,
+                        name: '${list.name.name} ${list.issueNumber}',
+                        date: list.coverDate,
+                        image: list.imageUrl,
+                        description: list.description,
+                      ),
+                    ));
+              },
+            );
+          },
+        ),
+      );
+    }
   }
 }

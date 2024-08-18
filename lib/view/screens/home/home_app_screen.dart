@@ -11,11 +11,10 @@ class HomeAppScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final bannerPrv = Provider.of<CharacterHomeBannerProvider>(context);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        // title: const UserInformationComponents(),
+        title: const UserInformationComponents(),
         actions: [
           //buscador
           OpenSearchHomeComponents(
@@ -25,61 +24,66 @@ class HomeAppScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          //banner imagen
-          bannerPrv.isLoading
-              ? SizedBox(
-                  height: size.height * .4,
-                )
-              : BannerHomeComponents(
-                  data: bannerPrv.character!,
+      body: Consumer<HomeAppProvider>(
+        builder: (context, prv, child) {
+          if (prv.isLoadingBanner) {
+            return const ShimmerHomeComponents();
+          } else {
+            return Column(
+              children: [
+                BannerHomeComponents(
+                  data: prv,
                 ),
 
-          SizedBox(height: size.height * .03),
-          //lista de datos
-          Expanded(
-            child: FadeIn(
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
-                padding: EdgeInsets.only(left: size.width * .01),
-                keyboardDismissBehavior:
-                    ScrollViewKeyboardDismissBehavior.onDrag,
-                children: [
-                  //comics recientes
-                  AllTextTitleComponents(
-                    title: 'Comics recientes',
-                    onTap: () {
-                      /*navega a ver la lista de comics recientes */
-                      Navigator.pushNamed(
-                        context,
-                        MainRoutes.allComicsRoute,
-                      );
-                    },
-                  ),
-                  //comics recientes
-                  const ListRecientComicsHomeComponents(),
+                SizedBox(height: size.height * .03),
+                //lista de datos
+                Expanded(
+                  child: FadeIn(
+                    child: ListView(
+                      physics: const BouncingScrollPhysics(),
+                      padding: EdgeInsets.only(left: size.width * .01),
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
+                      children: [
+                        //comics recientes
+                        AllTextTitleComponents(
+                          title: 'Comics recientes',
+                          onTap: () {
+                            /*navega a ver la lista de comics recientes */
+                            Navigator.pushNamed(
+                              context,
+                              MainRoutes.allComicsRoute,
+                            );
+                          },
+                        ),
+                        //comics recientes
+                        ListRecientComicsHomeComponents(
+                          data: prv,
+                        ),
 
-                  SizedBox(height: size.height * .02),
-                  //personajes
-                  AllTextTitleComponents(
-                    title: 'Personajes',
-                    onTap: () {
-                      /*navega a ver la lista de todos los personajes*/
-                      Navigator.pushNamed(
-                        context,
-                        MainRoutes.allCharacterRoute,
-                      );
-                    },
+                        SizedBox(height: size.height * .02),
+                        //personajes
+                        AllTextTitleComponents(
+                          title: 'Personajes',
+                          onTap: () {
+                            /*navega a ver la lista de todos los personajes*/
+                            Navigator.pushNamed(
+                              context,
+                              MainRoutes.allCharacterRoute,
+                            );
+                          },
+                        ),
+                        //Personajes
+                        const ListCharactersHomeComponents(),
+                        SizedBox(height: size.height * .2),
+                      ],
+                    ),
                   ),
-                  //Personajes
-                  const ListCharactersHomeComponents(),
-                  SizedBox(height: size.height * .2),
-                ],
-              ),
-            ),
-          )
-        ],
+                )
+              ],
+            );
+          }
+        },
       ),
     );
   }

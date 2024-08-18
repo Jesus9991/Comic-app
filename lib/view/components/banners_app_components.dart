@@ -6,7 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 banner para el home, se muestra el personaje principal
 */
 class BannerHomeComponents extends StatelessWidget {
-  final BannerCharacterHomeModels data;
+  final HomeAppProvider data;
   const BannerHomeComponents({
     super.key,
     required this.data,
@@ -25,7 +25,7 @@ class BannerHomeComponents extends StatelessWidget {
                   height: size.height,
                   width: size.width,
                   child: ImageNetworkComponents(
-                    url: data.image.mediumUrl,
+                    url: data.character?.image.mediumUrl ?? '',
                   ),
                 ),
                 Align(
@@ -58,22 +58,21 @@ class BannerHomeComponents extends StatelessWidget {
                       children: [
                         //productora
                         Text(
-                          data.publisher.name,
+                          data.character?.publisher.name ?? '',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.start,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Text(
-                          data.name,
+                          data.character?.name ?? '',
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.start,
                           style: Theme.of(context).textTheme.headlineLarge,
                         ),
                         Text(
-                          //!!falta poner el creador
-                          '${data.origin.name} | ${data.realName}',
+                          '${data.character?.origin.name ?? ''} | ${data.character?.realName ?? ''}',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.start,

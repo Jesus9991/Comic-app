@@ -1,5 +1,7 @@
+export 'package:comic_app/controller/json/detele_html_keys.dart';
+export 'package:comic_app/models/list_comics_home_models.dart';
 export 'package:comic_app/controller/json/handler_error_message.dart';
-export 'package:comic_app/controller/providers/character_home_banner_provider.dart';
+export 'package:comic_app/controller/providers/home_app_provider.dart';
 export 'package:comic_app/controller/blocs/bloc/banner_home_character_event_bloc.dart';
 export 'package:comic_app/controller/blocs/bloc/banner_home_character_event_event.dart';
 export 'package:comic_app/controller/blocs/bloc/banner_home_character_event_state.dart';

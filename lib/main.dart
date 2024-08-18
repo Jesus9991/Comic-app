@@ -14,8 +14,7 @@ class ProvidersApps extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-            create: (context) => CharacterHomeBannerProvider()),
+        ChangeNotifierProvider(create: (context) => HomeAppProvider()),
       ],
       child: const BlocksProviders(),
     );

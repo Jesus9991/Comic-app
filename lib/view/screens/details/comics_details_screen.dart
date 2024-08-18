@@ -40,7 +40,7 @@ class DetailsComicsScreen extends StatelessWidget {
           SizedBox(height: size.height * .02),
           //Descripción
           ExpandableTextComponents(
-            maxLines: 5,
+            maxLines: 2,
             text: description,
           ),
           SizedBox(height: size.height * .02),
