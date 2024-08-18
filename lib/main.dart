@@ -1,9 +1,41 @@
 import 'package:comic_app/controller/exports/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProvidersApps());
+}
+
+class ProvidersApps extends StatelessWidget {
+  const ProvidersApps({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (context) => CharacterHomeBannerProvider()),
+      ],
+      child: const BlocksProviders(),
+    );
+  }
+}
+
+class BlocksProviders extends StatelessWidget {
+  const BlocksProviders({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        //información del usuario
+        BlocProvider(create: (context) => NameUserInformationCubit()),
+        //banner del home
+        BlocProvider(create: (context) => BannerHomeCharacterBloc()),
+      ],
+      child: const MyApp(),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {

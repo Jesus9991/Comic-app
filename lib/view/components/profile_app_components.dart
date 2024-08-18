@@ -1,5 +1,6 @@
 import 'package:comic_app/controller/exports/exports.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 /*
@@ -10,6 +11,9 @@ class ProfileInformationComponents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final userName = context
+        .watch<NameUserInformationCubit>()
+        .state; //obtiene el valor("nombre del usuario al poner el .state")
     return Column(
       children: [
         //foto de perfil
@@ -24,7 +28,7 @@ class ProfileInformationComponents extends StatelessWidget {
         SizedBox(height: size.height * .02),
         //nombre
         Text(
-          'Mark Dunks H.',
+          userName,
           maxLines: 1,
           textAlign: TextAlign.center,
           overflow: TextOverflow.ellipsis,

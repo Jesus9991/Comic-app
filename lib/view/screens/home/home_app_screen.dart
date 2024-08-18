@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:comic_app/controller/exports/exports.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /*
 pantalla de inicio de la app
@@ -10,10 +11,11 @@ class HomeAppScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final bannerPrv = Provider.of<CharacterHomeBannerProvider>(context);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const UserInformationComponents(),
+        // title: const UserInformationComponents(),
         actions: [
           //buscador
           OpenSearchHomeComponents(
@@ -26,7 +28,13 @@ class HomeAppScreen extends StatelessWidget {
       body: Column(
         children: [
           //banner imagen
-          const BannerHomeComponents(),
+          bannerPrv.isLoading
+              ? SizedBox(
+                  height: size.height * .4,
+                )
+              : BannerHomeComponents(
+                  data: bannerPrv.character!,
+                ),
 
           SizedBox(height: size.height * .03),
           //lista de datos

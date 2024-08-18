@@ -1,0 +1,22 @@
+/*
+clase para manejar los dominios y url de la api(base de datos)
+*/
+class ApiRestPath {
+  static const String apiKey = '142596c57d2184f0313704846c8d40f9da20de07';
+  static const String formatKey = 'json';
+  static String httpDomain = 'https://comicvine.gamespot.com/api';
+  static String domain = 'comicvine.gamespot.com/api';
+
+  //paths
+  static const String characters = '/characters';
+  static const String search = '/search';
+}
+
+//obtiene los valores formateados
+class ObteinValueApi {
+  //obtener formatados de la API
+  static String getCharacterUrl(String characterName) {
+    //Obtiene el formato de el banner del home
+    return '${ApiRestPath.httpDomain}${ApiRestPath.search}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,image,name,origin,publisher,real_name,name&query=$characterName';
+  }
+}

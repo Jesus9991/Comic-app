@@ -2,8 +2,15 @@ import 'package:comic_app/controller/exports/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+/*
+banner para el home, se muestra el personaje principal
+*/
 class BannerHomeComponents extends StatelessWidget {
-  const BannerHomeComponents({super.key});
+  final BannerCharacterHomeModels data;
+  const BannerHomeComponents({
+    super.key,
+    required this.data,
+  });
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -17,10 +24,9 @@ class BannerHomeComponents extends StatelessWidget {
                 SizedBox(
                   height: size.height,
                   width: size.width,
-                  //Todo: conectar con api
                   child: ImageNetworkComponents(
-                      url:
-                          'https://i.pinimg.com/736x/c5/5c/dc/c55cdca9d7684c8cf07079752e6d3350.jpg'),
+                    url: data.image.mediumUrl,
+                  ),
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
@@ -41,7 +47,6 @@ class BannerHomeComponents extends StatelessWidget {
                         ])),
                   ),
                 ),
-                //Todo: conectar con base de dato
                 Positioned(
                   bottom: size.height * .03,
                   left: size.width * .06,
@@ -53,21 +58,22 @@ class BannerHomeComponents extends StatelessWidget {
                       children: [
                         //productora
                         Text(
-                          'Name.productora',
+                          data.publisher.name,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.start,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Text(
-                          'Name.character person',
+                          data.name,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.start,
                           style: Theme.of(context).textTheme.headlineLarge,
                         ),
                         Text(
-                          'Name.human | Name.creator',
+                          //!!falta poner el creador
+                          '${data.origin.name} | ${data.realName}',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.start,

@@ -30,10 +30,13 @@ environment:
 dependencies:
   animate_do: ^3.3.4
   cupertino_icons: ^1.0.6
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_animate: ^4.5.0
+  flutter_bloc: ^8.1.6
   flutter_launcher_icons: ^0.13.1
+  get_it: ^7.7.0
   google_fonts: ^6.2.1
   http: ^1.2.2
   icons_plus: ^5.0.0
@@ -42,6 +45,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   shared_preferences: ^2.2.3
   shimmer: ^3.0.0
+  sqflite: ^2.3.3+1
   vibration: ^2.0.0
 
 dev_dependencies:

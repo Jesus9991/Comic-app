@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:comic_app/controller/exports/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppBarHomeComponents extends StatelessWidget {
   final String title;
@@ -78,6 +79,8 @@ class UserInformationComponents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final userName = context.watch<
+        NameUserInformationCubit>(); //obtiene el valor("nombre del usuario al poner el .state")
     return Align(
       alignment: Alignment.topLeft,
       child: ClipRRect(
@@ -116,7 +119,7 @@ class UserInformationComponents extends StatelessWidget {
                         style: Theme.of(context).textTheme.labelLarge,
                       ),
                       Text(
-                        'Mark Dunks H.',
+                        userName.state,
                         maxLines: 1,
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.ellipsis,
@@ -160,6 +163,5 @@ class LeadingIconBlurAppBarComponent extends StatelessWidget {
         ),
       ).animate().fade().scale(),
     );
-    ;
   }
 }
