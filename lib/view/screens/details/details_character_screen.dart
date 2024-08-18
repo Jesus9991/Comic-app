@@ -7,10 +7,25 @@ pantalla para ver los detalles del personajes
 class DetailsCharacterScreen extends StatelessWidget {
   final int id;
   final String image;
+  final String name;
+  final String dateTime;
+  final String aliases;
+  final String description;
+  final String origin;
+  final String realName;
+  final String punisher;
+
   const DetailsCharacterScreen({
     super.key,
     required this.image,
     required this.id,
+    required this.name,
+    required this.dateTime,
+    required this.aliases,
+    required this.description,
+    required this.origin,
+    required this.realName,
+    required this.punisher,
   });
   @override
   Widget build(BuildContext context) {
@@ -22,7 +37,11 @@ class DetailsCharacterScreen extends StatelessWidget {
         child: Column(
           children: [
             BannerDetailsComicsComponents(
-                id: id, image: image, name: 'name', date: 'date'),
+              id: id,
+              image: image,
+              name: name,
+              date: dateTime,
+            ),
             //detalles
             Expanded(
               child: ListView(
@@ -30,24 +49,26 @@ class DetailsCharacterScreen extends StatelessWidget {
                 padding: EdgeInsets.only(left: size.width * .00),
                 keyboardDismissBehavior:
                     ScrollViewKeyboardDismissBehavior.onDrag,
-                children: const [
-                  //#
+                children: [
                   _DetailsInformationComponents(
-                    title: 'title.name',
-                    description: 'description.name',
-                  ),
-
-                  _DetailsInformationComponents(
-                    title: 'title.name',
-                    description: 'description.name',
+                    title: 'Nombre real',
+                    description: realName,
                   ),
                   _DetailsInformationComponents(
-                    title: 'title.name',
-                    description: 'description.name',
+                    title: 'Descripción',
+                    description: description,
                   ),
                   _DetailsInformationComponents(
-                    title: 'title.name',
-                    description: 'description.name',
+                    title: 'Aliados',
+                    description: aliases,
+                  ),
+                  _DetailsInformationComponents(
+                    title: 'Origen',
+                    description: origin,
+                  ),
+                  _DetailsInformationComponents(
+                    title: 'Publicación',
+                    description: punisher,
                   ),
                 ],
               ),

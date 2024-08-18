@@ -5,57 +5,61 @@ import 'package:flutter/material.dart';
 /*
 lista de personajes en el home
 */
-class ListCharactersHomeComponents extends StatefulWidget {
-  const ListCharactersHomeComponents({super.key});
+class ListCharactersHomeComponents extends StatelessWidget {
+  final HomeAppProvider data;
+  const ListCharactersHomeComponents({
+    super.key,
+    required this.data,
+  });
 
-  @override
-  State<ListCharactersHomeComponents> createState() =>
-      _ListCharactersHomeComponentsState();
-}
-
-class _ListCharactersHomeComponentsState
-    extends State<ListCharactersHomeComponents> {
-  List<String> imagesList = [
-    'https://cdn.marvel.com/content/1x/savwolvinfc2024001_resized.jpg',
-    'https://http2.mlstatic.com/D_NQ_NP_731572-CBT76048785527_042024-O.webp',
-    'https://cdn.marvel.com/content/1x/hulk2023014_weaponxtraction.jpg',
-  ];
-
-  List<int> idsList = [12, 22, 33];
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    if (data.listcachedCharacter == null || data.listcachedCharacter == []) {
+      return const SizedBox();
+    } else {
+      return SizedBox(
+        height: size.height * .3,
+        width: size.width,
+        child: ListView.separated(
+          itemCount: data.listcachedCharacter?.length ?? 0,
+          scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.only(left: size.width * .05),
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          separatorBuilder: (context, index) =>
+              SizedBox(width: size.width * .04),
+          itemBuilder: (context, index) {
+            final values = data.listcachedCharacter?[index];
 
-    return SizedBox(
-      height: size.height * .3,
-      width: size.width,
-      child: ListView.separated(
-        //Todo: conectar con api para obtener una lista de 10 personajes
-        itemCount: imagesList.length,
-        scrollDirection: Axis.horizontal,
-        physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.only(left: size.width * .05),
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        separatorBuilder: (context, index) => SizedBox(width: size.width * .04),
-        itemBuilder: (context, index) {
-          return CardComicsHomeComponents(
-            id: idsList[index],
-            name: 'Characters name',
-            date: 'Marzo 30 1995',
-            image: imagesList[index],
-            onTap: () {
-              /*navega a los detalles del personajes*/
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailsCharacterScreen(
-                      image: imagesList[index], id: idsList[index]),
-                ),
-              );
-            },
-          );
-        },
-      ),
-    );
+            return CardComicsHomeComponents(
+              id: values?.id ?? 0,
+              name: values?.name ?? '',
+              date: values?.dateTime ?? '',
+              image: values?.image.image ?? '',
+              onTap: () {
+                /*navega a los detalles del personajes*/
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailsCharacterScreen(
+                      id: values?.id ?? 0,
+                      image: values?.image.image ?? '',
+                      name: values?.name ?? '',
+                      dateTime: values?.dateTime ?? '',
+                      aliases: values?.aliases ?? '',
+                      description: values?.description ?? '',
+                      origin: values?.origin.name ?? '',
+                      realName: values?.realName ?? '',
+                      punisher: values?.publisher.name ?? '',
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+        ),
+      );
+    }
   }
 }

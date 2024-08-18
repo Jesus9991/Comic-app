@@ -24,8 +24,7 @@ class HomeAppProvider extends ChangeNotifier {
   HomeAppProvider() {
     getDataCharacterMain();
     getListComicsRecents();
-
-    // getListCharacters();
+    getListCharacters();
   }
 
   //*OBTIENE UN PERSONAJE PARA EL BANNER DEL HOME */
@@ -108,6 +107,7 @@ class HomeAppProvider extends ChangeNotifier {
       } else {
         _errorMessageComics = 'Error en la solicitud: ${response.statusCode}';
       }
+      notifyListeners();
     } catch (e) {
       _errorMessageComics = 'Se produjo un error inesperado: $e';
       log('getListComicsRecents: $e');
@@ -118,7 +118,7 @@ class HomeAppProvider extends ChangeNotifier {
   }
 
   // Listas para créditos
-  List<PersonCredits> _credits = [];
+  final List<PersonCredits> _credits = [];
   List<CharactersCredits> _charactersCredits = [];
   List<TeamCredits> _teamCredits = [];
   List<LocationsCredits> _locationsCredits = [];
@@ -130,12 +130,12 @@ class HomeAppProvider extends ChangeNotifier {
   List<LocationsCredits> get locationsCredits => _locationsCredits;
   List<ConceptCredits> get conceptCredits => _conceptCredits;
 
-  // Método para manejar el cambio de tap
+  // metodo para manejar el cambio de tap
   void setChangeMenuTap(int index) {
     // Limpiar las listas no relevantes
     switch (index) {
+      //Todo: arreglar, ahora mismo no carga datos
       case 0:
-        // Mostrar cómics y limpiar las demás listas
         _credits.clear();
         _charactersCredits.clear();
         _teamCredits.clear();
@@ -144,7 +144,6 @@ class HomeAppProvider extends ChangeNotifier {
         notifyListeners();
         break;
       case 1:
-        // Mostrar créditos de personajes y limpiar las demás listas
         _charactersCredits = []; // Aquí debes cargar los datos necesarios
         _credits.clear();
         _teamCredits.clear();
@@ -153,7 +152,6 @@ class HomeAppProvider extends ChangeNotifier {
         notifyListeners();
         break;
       case 2:
-        // Mostrar créditos de equipo y limpiar las demás listas
         _teamCredits = []; // Aquí debes cargar los datos necesarios
         _credits.clear();
         _charactersCredits.clear();
@@ -162,7 +160,6 @@ class HomeAppProvider extends ChangeNotifier {
         notifyListeners();
         break;
       case 3:
-        // Mostrar créditos de ubicaciones y limpiar las demás listas
         _locationsCredits = []; // Aquí debes cargar los datos necesarios
         _credits.clear();
         _charactersCredits.clear();
@@ -180,13 +177,66 @@ class HomeAppProvider extends ChangeNotifier {
         notifyListeners();
         break;
       default:
-        // Manejar casos por defecto si es necesario
         _credits.clear();
         _charactersCredits.clear();
         _teamCredits.clear();
         _locationsCredits.clear();
         _conceptCredits.clear();
         notifyListeners();
+    }
+  }
+
+  //obtiene los personajes en el home
+
+  /*moodelo para el personaje */
+  List<ListCharactersHomeModel>? _listcachedCharacter = [];
+  /*carga de datos*/
+  bool _isLoadingListCharacter = false;
+  /*en caso de error*/
+  String? _errorMessageListCharacter;
+
+  /*extención get de los datos */
+  List<ListCharactersHomeModel>? get listcachedCharacter =>
+      _listcachedCharacter;
+
+  bool get isLoadingListCharacter => _isLoadingListCharacter;
+  String? get errorMessageListCharacter => _errorMessageListCharacter;
+
+  //*==OBTIENE LA LISTA DE PERSONAJES=====*/
+  Future<void> getListCharacters() async {
+    if (_listcachedCharacter!.isNotEmpty) {
+      //si ya hay datos en caché, no se hace la petición
+      return;
+    }
+    _isLoadingListCharacter = true;
+    notifyListeners();
+
+    try {
+      final url = Uri.parse(ObteinValueApi.getListCharactersHome());
+      final response = await http.get(url);
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        final data = json.decode(response.body);
+        List<dynamic> results = data['results'];
+        // parsea los resultados a la lista de cómics
+        _listcachedCharacter = results
+            .map((comic) => ListCharactersHomeModel.fromJson(comic))
+            .toList();
+
+        _errorMessageComics = null;
+        log('Primer personaje en la lista home: ${_listcachedCharacter?.first.id}');
+      } else {
+        _errorMessageListCharacter =
+            'Error en la solicitud: ${response.statusCode}';
+      }
+      notifyListeners();
+    } catch (e) {
+      _errorMessageListCharacter = 'Se produjo un error inesperado: $e';
+      log('getListCharacters: $e');
+      notifyListeners();
+    } finally {
+      _isLoadingListCharacter = false;
+      notifyListeners();
     }
   }
 }

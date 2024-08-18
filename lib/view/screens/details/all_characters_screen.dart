@@ -54,6 +54,13 @@ class _AllCharactersScreenState extends State<AllCharactersScreen> {
                         builder: (context) => DetailsCharacterScreen(
                           image: imagesList[index],
                           id: idsList[index],
+                          name: 'q3232323213',
+                          dateTime: 'sdsadasdasdk',
+                          aliases: 'sdsadas',
+                          description: '32423432',
+                          origin: 'hghgffh',
+                          realName: 'sdssd',
+                          punisher: 'sdfsdfdsdsf',
                         ),
                       ),
                     );

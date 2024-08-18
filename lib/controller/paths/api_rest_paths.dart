@@ -24,4 +24,9 @@ class ObteinValueApi {
   static String getComicsHome() {
     return '${ApiRestPath.httpDomain}${ApiRestPath.comicsHome}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,volume,issue_number,cover_date,description,image,credits,characters,teams,locations,concepts&sort=cover_date:desc&limit=10&error="OK"';
   }
+
+  //#3 obtiene la lista de personajes en el home
+  static String getListCharactersHome() {
+    return '${ApiRestPath.httpDomain}${ApiRestPath.characters}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,aliases,description,image,name,origin,publisher,date_added,real_name&limit=10&error="OK"';
+  }
 }

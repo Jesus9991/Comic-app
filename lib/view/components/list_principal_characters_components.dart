@@ -1,8 +1,6 @@
 import 'package:comic_app/controller/exports/exports.dart';
+import 'package:comic_app/controller/exports/screen_exports.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
-import '../../controller/exports/screen_exports.dart';
 
 /*
 listas de personajes principales
@@ -42,9 +40,17 @@ class ListPrincipalCharactersComponents extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => DetailsCharacterScreen(
-                        image:
-                            'https://i.pinimg.com/736x/c5/5c/dc/c55cdca9d7684c8cf07079752e6d3350.jpg',
-                        id: 22),
+                      id: 0,
+                      image:
+                          'https://i.pinimg.com/736x/c5/5c/dc/c55cdca9d7684c8cf07079752e6d3350.jpg',
+                      name: 'sdlksadljsaljaslkasjk',
+                      dateTime: 'sdsadasasssd',
+                      aliases: 'sdsadas',
+                      description: '32423432',
+                      origin: 'hghgffh',
+                      realName: 'sdssd',
+                      punisher: 'sdfsdfdsdsf',
+                    ),
                   ),
                 );
               },

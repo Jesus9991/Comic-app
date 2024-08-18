@@ -1,11 +1,13 @@
 import 'package:comic_app/controller/exports/exports.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CharactersAppScreen extends StatelessWidget {
   const CharactersAppScreen({super.key});
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final prvList = Provider.of<HomeAppProvider>(context);
     return ScaffoldUpBlurEffectWidget(
       child: CustomScrollView(
         physics: const BouncingScrollPhysics(),
@@ -29,7 +31,9 @@ class CharactersAppScreen extends StatelessWidget {
               },
             ),
             //Personajes
-            const ListCharactersHomeComponents(),
+            ListCharactersHomeComponents(
+              data: prvList,
+            ),
             SizedBox(height: size.height * .2),
           ]))
         ],

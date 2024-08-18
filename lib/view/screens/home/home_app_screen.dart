@@ -26,7 +26,9 @@ class HomeAppScreen extends StatelessWidget {
       ),
       body: Consumer<HomeAppProvider>(
         builder: (context, prv, child) {
-          if (prv.isLoadingBanner) {
+          if (prv.isLoadingBanner &&
+              prv.isLoadingBanner &&
+              prv.isLoadingListCharacter) {
             return const ShimmerHomeComponents();
           } else {
             return Column(
@@ -74,7 +76,9 @@ class HomeAppScreen extends StatelessWidget {
                           },
                         ),
                         //Personajes
-                        const ListCharactersHomeComponents(),
+                        ListCharactersHomeComponents(
+                          data: prv,
+                        ),
                         SizedBox(height: size.height * .2),
                       ],
                     ),

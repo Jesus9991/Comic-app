@@ -1,3 +1,4 @@
+export 'package:comic_app/models/list_characters_home_models.dart';
 export 'package:comic_app/view/components/empty_components.dart';
 export 'package:comic_app/controller/json/detele_html_keys.dart';
 export 'package:comic_app/models/list_comics_home_models.dart';
