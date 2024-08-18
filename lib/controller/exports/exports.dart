@@ -1,3 +1,4 @@
+export 'package:comic_app/view/components/shimmer_app_components.dart';
 export 'package:comic_app/view/components/profile_app_components.dart';
 export 'package:comic_app/view/components/list_principal_characters_components.dart';
 export 'package:comic_app/controller/paths/taps_details_comics_path.dart';
