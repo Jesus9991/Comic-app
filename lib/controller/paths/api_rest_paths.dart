@@ -21,12 +21,22 @@ class ObteinValueApi {
   }
 
   // #2 obtiene el formato para los comics del home
-  static String getComicsHome() {
-    return '${ApiRestPath.httpDomain}${ApiRestPath.comicsHome}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,volume,issue_number,cover_date,description,image,credits,characters,teams,locations,concepts&sort=cover_date:desc&limit=10&error="OK"';
+  static String getListComics(String limit) {
+    return '${ApiRestPath.httpDomain}${ApiRestPath.comicsHome}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,volume,issue_number,cover_date,description,image,credits,characters,teams,locations,concepts&sort=cover_date:desc&limit=$limit&error="OK"';
   }
 
   //#3 obtiene la lista de personajes en el home
-  static String getListCharactersHome() {
-    return '${ApiRestPath.httpDomain}${ApiRestPath.characters}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,aliases,description,image,name,origin,publisher,date_added,real_name&limit=10&error="OK"';
+  static String getListCharactersHome(String limit) {
+    return '${ApiRestPath.httpDomain}${ApiRestPath.characters}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,aliases,description,image,name,origin,publisher,date_added,real_name&limit=$limit&error="OK"';
+  }
+
+  static String getListAllComics(String currentPage) {
+    return '${ApiRestPath.httpDomain}${ApiRestPath.comicsHome}'
+        '?api_key=${ApiRestPath.apiKey}'
+        '&format=${ApiRestPath.formatKey}'
+        '&field_list=id,volume,issue_number,cover_date,description,image,credits,characters,teams,locations,concepts'
+        '&sort=cover_date:desc'
+        '&limit=10'
+        '&number_of_page_results=$currentPage';
   }
 }

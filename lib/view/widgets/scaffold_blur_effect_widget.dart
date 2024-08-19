@@ -64,7 +64,6 @@ effecto blur en la parte superior
 */
 class ScaffoldUpBlurEffectWidget extends StatelessWidget {
   final Widget child;
-
   const ScaffoldUpBlurEffectWidget({
     super.key,
     required this.child,
@@ -80,6 +79,58 @@ class ScaffoldUpBlurEffectWidget extends StatelessWidget {
         width: size.width,
         child: Stack(
           children: [
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              height: size.height * 0.3,
+              child: ClipRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          PaletteColorsTheme.redColor.withOpacity(0.3),
+                          Colors.transparent,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            // El contenido principal del widget
+            child,
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ScaffoldUPBlurEffectWidget extends StatelessWidget {
+  final Widget child;
+  final PreferredSizeWidget appBar;
+  const ScaffoldUPBlurEffectWidget({
+    super.key,
+    required this.child,
+    required this.appBar,
+  });
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: appBar,
+      body: SizedBox(
+        height: size.height,
+        width: size.width,
+        child: Stack(
+          children: [
+            // fondo que se verá afectado por el desenfoque
             Positioned(
               top: 0,
               left: 0,

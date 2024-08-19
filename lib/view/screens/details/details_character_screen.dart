@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:comic_app/controller/exports/exports.dart';
 import 'package:flutter/material.dart';
 
@@ -44,33 +45,35 @@ class DetailsCharacterScreen extends StatelessWidget {
             ),
             //detalles
             Expanded(
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
-                padding: EdgeInsets.only(left: size.width * .00),
-                keyboardDismissBehavior:
-                    ScrollViewKeyboardDismissBehavior.onDrag,
-                children: [
-                  _DetailsInformationComponents(
-                    title: 'Nombre real',
-                    description: realName,
-                  ),
-                  _DetailsInformationComponents(
-                    title: 'Descripción',
-                    description: description,
-                  ),
-                  _DetailsInformationComponents(
-                    title: 'Aliados',
-                    description: aliases,
-                  ),
-                  _DetailsInformationComponents(
-                    title: 'Origen',
-                    description: origin,
-                  ),
-                  _DetailsInformationComponents(
-                    title: 'Publicación',
-                    description: punisher,
-                  ),
-                ],
+              child: FadeIn(
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  padding: EdgeInsets.only(left: size.width * .00),
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  children: [
+                    _DetailsInformationComponents(
+                      title: 'Nombre real',
+                      description: realName,
+                    ),
+                    _DetailsInformationComponents(
+                      title: 'Descripción',
+                      description: description,
+                    ),
+                    _DetailsInformationComponents(
+                      title: 'Aliados',
+                      description: aliases,
+                    ),
+                    _DetailsInformationComponents(
+                      title: 'Origen',
+                      description: origin,
+                    ),
+                    _DetailsInformationComponents(
+                      title: 'Publicación',
+                      description: punisher,
+                    ),
+                  ],
+                ),
               ),
             )
           ],

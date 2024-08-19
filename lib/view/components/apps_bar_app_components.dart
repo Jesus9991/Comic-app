@@ -3,7 +3,6 @@ import 'dart:ui';
 
 import 'package:comic_app/controller/exports/exports.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppBarHomeComponents extends StatelessWidget {
@@ -152,16 +151,54 @@ class LeadingIconBlurAppBarComponent extends StatelessWidget {
       child: ClipOval(
         child: Padding(
           padding: EdgeInsets.only(left: size.width * .01),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-            child: Center(
-              child: Icon(
-                isiOS ? Icons.arrow_back_ios : Icons.arrow_back,
+          child: CircleAvatar(
+            backgroundColor: PaletteColorsTheme.greyBlackTwo.withOpacity(0.2),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+              child: Center(
+                child: Icon(isiOS ? Icons.arrow_back_ios : Icons.arrow_back),
               ),
             ),
           ),
         ),
-      ).animate().fade().scale(),
+      ),
     );
   }
+}
+
+class BlurAppBarComponents extends StatelessWidget
+    implements PreferredSizeWidget {
+  final String title;
+  const BlurAppBarComponents({
+    super.key,
+    required this.title,
+  });
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Theme.of(context).primaryColor.withOpacity(0.3),
+      centerTitle: true,
+      title: Text(title),
+      actions: [
+        OpenSearchHomeComponents(
+          onTap: () {},
+        ),
+      ],
+      flexibleSpace: ClipRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+          child: Container(
+            height: size.height * .3,
+            width: size.width,
+            color: Colors.transparent,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

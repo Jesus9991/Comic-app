@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:comic_app/controller/exports/exports.dart';
+import 'package:comic_app/controller/exports/screen_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +12,8 @@ class HomeAppScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final comics = Provider.of<ListAllComicsProvider>(context);
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -52,10 +55,12 @@ class HomeAppScreen extends StatelessWidget {
                           title: 'Comics recientes',
                           onTap: () {
                             /*navega a ver la lista de comics recientes */
-                            Navigator.pushNamed(
-                              context,
-                              MainRoutes.allComicsRoute,
-                            );
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      AllComicsRecentScreen(dataPrv: comics),
+                                ));
                           },
                         ),
                         //comics recientes

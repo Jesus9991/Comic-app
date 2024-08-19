@@ -1,70 +1,129 @@
+import 'package:flutter/material.dart';
 import 'package:comic_app/controller/exports/exports.dart';
 import 'package:comic_app/controller/exports/screen_exports.dart';
-import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
+import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 /*
 pantalla para ver la lista de todos los comic recientes
 */
 class AllComicsRecentScreen extends StatefulWidget {
-  const AllComicsRecentScreen({super.key});
+  final ListAllComicsProvider dataPrv;
+  const AllComicsRecentScreen({
+    super.key,
+    required this.dataPrv,
+  });
 
   @override
   State<AllComicsRecentScreen> createState() => _AllComicsRecentScreenState();
 }
 
 class _AllComicsRecentScreenState extends State<AllComicsRecentScreen> {
-  List<String> imagesList = [
-    'https://cdn.marvel.com/content/1x/savwolvinfc2024001_resized.jpg',
-    'https://cdn.marvel.com/content/1x/hulk2023014_weaponxtraction.jpg',
-    'https://http2.mlstatic.com/D_NQ_NP_731572-CBT76048785527_042024-O.webp',
-    'https://cdn.marvel.com/content/1x/hulk2023014_weaponxtraction.jpg',
-    'https://http2.mlstatic.com/D_NQ_NP_731572-CBT76048785527_042024-O.webp',
-    'https://cdn.marvel.com/content/1x/hulk2023014_weaponxtraction.jpg',
-  ];
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+  final ScrollController scrollController = ScrollController();
 
-  List<int> idsList = [12, 22, 33, 21, 66, 32];
+  @override
+  void initState() {
+    super.initState();
+    fetchComics();
+
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        if (widget.dataPrv.hasMoreComics &&
+            !widget.dataPrv.isLoadingMoreComics) {
+          widget.dataPrv.loadMoreComics(context); // Utiliza loadMoreComics
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    _refreshController.dispose();
+    super.dispose();
+  }
+
+  void fetchComics({bool loadMore = false}) async {
+    await widget.dataPrv
+        .getListAllComics(context, loadMore: loadMore); // Corregir el argumento
+  }
+
+  Future<void> _onRefresh() async {
+    widget.dataPrv.scrollValues();
+    await widget.dataPrv.getListAllComics(context, loadMore: false);
+    _refreshController.refreshCompleted();
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final comics = Provider.of<ListAllComicsProvider>(context);
+
     return ScaffoldUpBlurEffectWidget(
-      child: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        slivers: [
-          const AppBarHomeComponents(title: ''),
-          SliverPadding(
-            padding: EdgeInsets.symmetric(vertical: size.height * .03),
-            sliver: SliverList.separated(
-              itemCount: imagesList.length,
-              separatorBuilder: (context, index) =>
-                  SizedBox(height: size.height * .04),
-              itemBuilder: (context, index) {
-                return CardAllComicsAndCharacterComponents(
-                  id: idsList[index],
-                  name: 'Comics.name',
-                  date: 'Comics.date',
-                  image: imagesList[index],
-                  onTap: () {
-                    /*navega ver los detalles del comic*/
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailsComicsScreen(
-                            id: idsList[index],
-                            image: imagesList[index],
-                            name: 'DeadPool.name',
-                            date: '2034 05 20',
-                            description:
-                                'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-                          ),
-                        ));
-                  },
-                );
-              },
-            ),
-          )
-        ],
+      child: SmartRefresherComponent(
+        refreshController: _refreshController,
+        onRefresh: _onRefresh,
+        child: CustomScrollView(
+          controller: scrollController,
+          physics: const BouncingScrollPhysics(),
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          slivers: [
+            const AppBarHomeComponents(title: 'Comics'),
+            if (comics.isInitialLoading)
+              const SliverToBoxAdapter(
+                child: Center(child: CircularProgressIndicator.adaptive()),
+              )
+            else
+              comics.cachedComics == null || comics.cachedComics!.isEmpty
+                  ? const SliverToBoxAdapter(
+                      child: IsEmptyComponents(
+                        icon: Iconsax.document_1_outline,
+                        title: 'No se encontraron comics disponibles.',
+                      ),
+                    )
+                  : SliverPadding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: size.height * .03),
+                      sliver: SliverList.separated(
+                        itemCount: widget.dataPrv.cachedComics!.length +
+                            (widget.dataPrv.hasMoreComics ? 1 : 0),
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: size.height * .04),
+                        itemBuilder: (context, index) {
+                          if (index == widget.dataPrv.cachedComics!.length) {
+                            return const Center(
+                                child: CircularProgressIndicator.adaptive());
+                          }
+                          final comic = widget.dataPrv.cachedComics?[index];
+                          return CardAllComicsAndCharacterComponents(
+                            id: comic?.id ?? 0,
+                            name: comic?.name.name ?? '',
+                            date: comic?.coverDate ?? '',
+                            image: comic?.imageUrl ?? '',
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailsComicsScreen(
+                                    id: comic?.id ?? 0,
+                                    image: comic?.imageUrl ?? '',
+                                    name: comic?.name.name ?? '',
+                                    date: comic?.coverDate ?? '',
+                                    description: comic?.description ?? '',
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+          ],
+        ),
       ),
     );
   }

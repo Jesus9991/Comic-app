@@ -90,7 +90,7 @@ class HomeAppProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final url = Uri.parse(ObteinValueApi.getComicsHome());
+      final url = Uri.parse(ObteinValueApi.getListComics('10'));
       final response = await http.get(url);
 
       if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -212,7 +212,7 @@ class HomeAppProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final url = Uri.parse(ObteinValueApi.getListCharactersHome());
+      final url = Uri.parse(ObteinValueApi.getListCharactersHome('10'));
       final response = await http.get(url);
 
       if (response.statusCode >= 200 && response.statusCode < 300) {

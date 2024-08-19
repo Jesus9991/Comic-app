@@ -15,6 +15,8 @@ class ProvidersApps extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => HomeAppProvider()),
+        ChangeNotifierProvider(
+            create: (context) => ListAllComicsProvider(context)),
       ],
       child: const BlocksProviders(),
     );
@@ -49,7 +51,7 @@ class MyApp extends StatelessWidget {
     ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Comics App',
+      title: 'Cómics App',
       theme: MainTheme.whiteTheme,
       routes: MainRoutes.routes,
       initialRoute: MainRoutes.initialRoute,
