@@ -162,3 +162,48 @@ class ScaffoldUPBlurEffectWidget extends StatelessWidget {
     );
   }
 }
+
+/*
+effecto gradienta para los containers
+*/
+class GradientContainer extends StatelessWidget {
+  final Widget child;
+  const GradientContainer({
+    super.key,
+    required this.child,
+  });
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Stack(
+      children: [
+        // fondo que se verá afectado por el desenfoque
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: size.height * 1,
+          child: ClipRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      PaletteColorsTheme.redColor.withOpacity(0.3),
+                      Colors.transparent,
+                    ],
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        // El contenido principal del widget
+        child,
+      ],
+    );
+  }
+}

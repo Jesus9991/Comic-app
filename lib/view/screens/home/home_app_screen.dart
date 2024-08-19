@@ -19,13 +19,9 @@ class HomeAppScreen extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const UserInformationComponents(),
-        actions: [
+        actions: const [
           //buscador
-          OpenSearchHomeComponents(
-            onTap: () {
-              //Todo: debe abrir el buscador
-            },
-          ),
+          OpenSearchHomeComponents(),
         ],
       ),
       body: Consumer<HomeAppProvider>(

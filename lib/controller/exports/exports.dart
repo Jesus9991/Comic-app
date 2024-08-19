@@ -1,3 +1,4 @@
+export 'package:comic_app/view/widgets/search_delegate_app_widgets.dart';
 export 'package:comic_app/controller/providers/list_numbers_characters_provider.dart';
 export 'package:comic_app/models/list_numbers_characters_models.dart';
 export 'package:comic_app/models/list_all_characters_models.dart';

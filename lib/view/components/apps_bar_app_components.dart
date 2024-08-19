@@ -23,10 +23,9 @@ class AppBarHomeComponents extends StatelessWidget {
       collapsedHeight: size.height * .1,
       centerTitle: true,
       title: Text(title),
-      actions: [
-        OpenSearchHomeComponents(
-          onTap: () {},
-        ),
+      actions: const [
+        //buscador
+        OpenSearchHomeComponents(),
       ],
       flexibleSpace: ClipRect(
         child: BackdropFilter(
@@ -57,10 +56,9 @@ class AppBarHomeTransparentComponents extends StatelessWidget {
       expandedHeight: size.height * .07,
       titleSpacing: size.height * .07,
       collapsedHeight: size.height * .07,
-      actions: [
-        OpenSearchHomeComponents(
-          onTap: () {},
-        ),
+      actions: const [
+        //buscador
+        OpenSearchHomeComponents(),
       ],
       flexibleSpace: SizedBox(
         height: size.height * .3,
@@ -181,10 +179,9 @@ class BlurAppBarComponents extends StatelessWidget
       backgroundColor: Theme.of(context).primaryColor.withOpacity(0.3),
       centerTitle: true,
       title: Text(title),
-      actions: [
-        OpenSearchHomeComponents(
-          onTap: () {},
-        ),
+      actions: const [
+        //buscador
+        OpenSearchHomeComponents(),
       ],
       flexibleSpace: ClipRect(
         child: BackdropFilter(

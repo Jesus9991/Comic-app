@@ -9,11 +9,9 @@ componentes para abrir el buscador
 */
 class OpenSearchHomeComponents extends StatelessWidget {
   final EdgeInsets? margin;
-  final Function onTap;
   const OpenSearchHomeComponents({
     super.key,
     this.margin,
-    required this.onTap,
   });
   @override
   Widget build(BuildContext context) {
@@ -22,7 +20,12 @@ class OpenSearchHomeComponents extends StatelessWidget {
       padding: margin ?? EdgeInsets.only(right: size.width * .03),
       child: InkWell(
         borderRadius: BorderRadius.circular(100),
-        onTap: () => onTap(),
+        onTap: () {
+          showSearch(
+            context: context,
+            delegate: SearchDelegateAppWidgets(),
+          );
+        },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(100),
           child: BackdropFilter(
