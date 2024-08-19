@@ -1,8 +1,8 @@
-import 'package:comic_app/controller/exports/exports.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
+import 'package:comic_app/controller/exports/exports.dart';
 
 void main() {
   runApp(const ProvidersApps());
@@ -20,6 +20,9 @@ class ProvidersApps extends StatelessWidget {
         //lista de todos los personajes
         ChangeNotifierProvider(
             create: (context) => ListAllCharacterProviders()),
+        //personajes enumerados
+        ChangeNotifierProvider(
+            create: (context) => ListNumberCharacterProvider()),
       ],
       child: const BlocksProviders(),
     );

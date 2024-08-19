@@ -67,8 +67,65 @@ class ShimmerAllListComponents extends StatelessWidget {
   }
 }
 
+/*
+shimmer para la pantalla de personajes
+*/
+class ShimmerCharactersScreenComponents extends StatelessWidget {
+  const ShimmerCharactersScreenComponents({super.key});
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Column(
+      children: [
+        SizedBox(height: size.height * .1),
+        SizedBox(
+          height: size.height * .3,
+          width: size.width,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            children: [
+              CardVerticalCardComponets(
+                width: size.width * .4,
+              ),
+              SizedBox(width: size.width * .04),
+              CardVerticalCardComponets(width: size.width * .4),
+              SizedBox(width: size.width * .03),
+              CardVerticalCardComponets(width: size.width * .4),
+            ],
+          ),
+        ),
+        SizedBox(height: size.height * .1),
+        SizedBox(
+          height: size.height * .3,
+          width: size.width,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            children: [
+              CardVerticalCardComponets(
+                width: size.width * .4,
+              ),
+              SizedBox(width: size.width * .04),
+              CardVerticalCardComponets(width: size.width * .4),
+              SizedBox(width: size.width * .03),
+              CardVerticalCardComponets(width: size.width * .4),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class CardVerticalCardComponets extends StatelessWidget {
-  const CardVerticalCardComponets({super.key});
+  final double? width;
+  const CardVerticalCardComponets({
+    super.key,
+    this.width,
+  });
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -78,7 +135,7 @@ class CardVerticalCardComponets extends StatelessWidget {
       enabled: true,
       child: SizedBox(
         height: size.height * .3,
-        width: size.width * .2,
+        width: width ?? size.width * .2,
         child: Container(
           height: size.height,
           width: size.width * .4,

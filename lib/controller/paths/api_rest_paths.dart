@@ -31,6 +31,7 @@ class ObteinValueApi {
     return '${ApiRestPath.httpDomain}${ApiRestPath.characters}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,aliases,description,image,name,origin,publisher,date_added,real_name&limit=$limit&number_of_page_results=$currentPage&error="OK"';
   }
 
+  //#4 obtiene la lsita completa de comics
   static String getListAllComics(String currentPage) {
     return '${ApiRestPath.httpDomain}${ApiRestPath.comicsHome}'
         '?api_key=${ApiRestPath.apiKey}'
@@ -39,5 +40,10 @@ class ObteinValueApi {
         '&sort=cover_date:desc'
         '&limit=10'
         '&number_of_page_results=$currentPage';
+  }
+
+  //#5 obtiene la lista de personajes enumerados
+  static String getListCharacterNumbers() {
+    return '${ApiRestPath.httpDomain}${ApiRestPath.characters}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,aliases,description,image,name,origin,publisher,date_added,real_name&sort=date_last_updated:desc&limit=10&error="OK"';
   }
 }

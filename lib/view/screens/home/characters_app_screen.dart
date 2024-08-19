@@ -10,39 +10,48 @@ class CharactersAppScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final prvList = Provider.of<HomeAppProvider>(context);
     final heroPrv = Provider.of<ListAllCharacterProviders>(context);
+
     return ScaffoldUpBlurEffectWidget(
-      child: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        slivers: [
-          const AppBarHomeComponents(title: ''),
-          //personajes principales
-          const ListPrincipalCharactersComponents(),
-          //
-          SliverList(
-              delegate: SliverChildListDelegate([
-            //personajes
-            AllTextTitleComponents(
-              title: 'Personajes',
-              onTap: () {
-                /*navega a ver la lista de todos los personajes*/
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AllCharactersScreen(
-                      dataPrv: heroPrv,
-                    ),
+      child: Consumer<ListNumberCharacterProvider>(
+        builder: (context, numbPrv, child) {
+          if (numbPrv.isLoadingList) {
+            return const ShimmerCharactersScreenComponents();
+          } else {
+            return CustomScrollView(
+              physics: const BouncingScrollPhysics(),
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              slivers: [
+                const AppBarHomeComponents(title: ''),
+                //personajes principales
+                const ListPrincipalCharactersComponents(),
+                //
+                SliverList(
+                    delegate: SliverChildListDelegate([
+                  //personajes
+                  AllTextTitleComponents(
+                    title: 'Personajes',
+                    onTap: () {
+                      /*navega a ver la lista de todos los personajes*/
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AllCharactersScreen(
+                            dataPrv: heroPrv,
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
-            //Personajes
-            ListCharactersHomeComponents(
-              data: prvList,
-            ),
-            SizedBox(height: size.height * .2),
-          ]))
-        ],
+                  //Personajes
+                  ListCharactersHomeComponents(
+                    data: prvList,
+                  ),
+                  SizedBox(height: size.height * .2),
+                ]))
+              ],
+            );
+          }
+        },
       ),
     );
   }
