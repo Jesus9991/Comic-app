@@ -52,7 +52,6 @@ class BannerDetailsComicsComponents extends StatelessWidget {
                     ])),
               ),
             ),
-            //Todo: conectar con base de dato
             Positioned(
               bottom: size.height * .03,
               left: size.width * .06,

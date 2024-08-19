@@ -118,7 +118,7 @@ class HomeAppProvider extends ChangeNotifier {
   }
 
   // Listas para créditos
-  final List<PersonCredits> _credits = [];
+  List<PersonCredits> _credits = [];
   List<CharactersCredits> _charactersCredits = [];
   List<TeamCredits> _teamCredits = [];
   List<LocationsCredits> _locationsCredits = [];
@@ -134,9 +134,9 @@ class HomeAppProvider extends ChangeNotifier {
   void setChangeMenuTap(int index) {
     // Limpiar las listas no relevantes
     switch (index) {
-      //Todo: arreglar, ahora mismo no carga datos
+      //Todo: carga de datos
       case 0:
-        _credits.clear();
+        _credits = [];
         _charactersCredits.clear();
         _teamCredits.clear();
         _locationsCredits.clear();
@@ -144,7 +144,7 @@ class HomeAppProvider extends ChangeNotifier {
         notifyListeners();
         break;
       case 1:
-        _charactersCredits = []; // Aquí debes cargar los datos necesarios
+        _charactersCredits = [];
         _credits.clear();
         _teamCredits.clear();
         _locationsCredits.clear();
@@ -152,7 +152,7 @@ class HomeAppProvider extends ChangeNotifier {
         notifyListeners();
         break;
       case 2:
-        _teamCredits = []; // Aquí debes cargar los datos necesarios
+        _teamCredits = [];
         _credits.clear();
         _charactersCredits.clear();
         _locationsCredits.clear();
@@ -160,7 +160,7 @@ class HomeAppProvider extends ChangeNotifier {
         notifyListeners();
         break;
       case 3:
-        _locationsCredits = []; // Aquí debes cargar los datos necesarios
+        _locationsCredits = [];
         _credits.clear();
         _charactersCredits.clear();
         _teamCredits.clear();
@@ -168,8 +168,8 @@ class HomeAppProvider extends ChangeNotifier {
         notifyListeners();
         break;
       case 4:
-        // Mostrar créditos de conceptos y limpiar las demás listas
-        _conceptCredits = []; // Aquí debes cargar los datos necesarios
+        //mostrar créditos de conceptos y limpiar las demás listas
+        _conceptCredits = [];
         _credits.clear();
         _charactersCredits.clear();
         _teamCredits.clear();
