@@ -21,7 +21,7 @@ class CharactersAppScreen extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               slivers: [
-                const AppBarHomeComponents(title: ''),
+                const AppBarHomeComponents(title: 'Personajes'),
                 //personajes principales
                 const ListPrincipalCharactersComponents(),
                 //

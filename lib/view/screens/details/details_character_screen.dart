@@ -52,26 +52,31 @@ class DetailsCharacterScreen extends StatelessWidget {
                   keyboardDismissBehavior:
                       ScrollViewKeyboardDismissBehavior.onDrag,
                   children: [
-                    _DetailsInformationComponents(
-                      title: 'Nombre real',
-                      description: realName,
-                    ),
-                    _DetailsInformationComponents(
-                      title: 'Descripción',
-                      description: description,
-                    ),
-                    _DetailsInformationComponents(
-                      title: 'Aliados',
-                      description: aliases,
-                    ),
-                    _DetailsInformationComponents(
-                      title: 'Origen',
-                      description: origin,
-                    ),
-                    _DetailsInformationComponents(
-                      title: 'Publicación',
-                      description: punisher,
-                    ),
+                    if (realName.isNotEmpty)
+                      _DetailsInformationComponents(
+                        title: 'Nombre real',
+                        description: realName,
+                      ),
+                    if (description.isNotEmpty)
+                      _DetailsInformationComponents(
+                        title: 'Descripción',
+                        description: description,
+                      ),
+                    if (aliases.isNotEmpty)
+                      _DetailsInformationComponents(
+                        title: 'Aliados',
+                        description: aliases,
+                      ),
+                    if (origin.isNotEmpty)
+                      _DetailsInformationComponents(
+                        title: 'Origen',
+                        description: origin,
+                      ),
+                    if (punisher.isNotEmpty)
+                      _DetailsInformationComponents(
+                        title: 'Publicación',
+                        description: punisher,
+                      ),
                   ],
                 ),
               ),

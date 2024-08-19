@@ -1,3 +1,7 @@
+export 'package:comic_app/view/components/search_delegate_components.dart';
+export 'package:comic_app/controller/providers/search_app_provider.dart';
+export 'package:comic_app/controller/json/list_heros_suggestion.dart';
+export 'package:comic_app/models/search_vine_comics_models.dart';
 export 'package:comic_app/view/widgets/search_delegate_app_widgets.dart';
 export 'package:comic_app/controller/providers/list_numbers_characters_provider.dart';
 export 'package:comic_app/models/list_numbers_characters_models.dart';

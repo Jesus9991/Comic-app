@@ -23,6 +23,8 @@ class ProvidersApps extends StatelessWidget {
         //personajes enumerados
         ChangeNotifierProvider(
             create: (context) => ListNumberCharacterProvider()),
+        //buscador
+        ChangeNotifierProvider(create: (context) => SearchAppProvider()),
       ],
       child: const BlocksProviders(),
     );

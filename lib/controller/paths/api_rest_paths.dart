@@ -47,8 +47,7 @@ class ObteinValueApi {
     return '${ApiRestPath.httpDomain}${ApiRestPath.characters}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,aliases,description,image,name,origin,publisher,date_added,real_name&sort=date_last_updated:desc&limit=10&error="OK"';
   }
 
-  //#buscador de la app
-  static String searchApp() {
-    return '${ApiRestPath.httpDomain}${ApiRestPath.characters}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}';
+  static String searchDelegate(String currentQuery, String currentPage) {
+    return '${ApiRestPath.httpDomain}${ApiRestPath.search}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&query=$currentQuery&page=$currentPage&field_list=id,aliases,birth,description,image,name,real_name,origin,publisher';
   }
 }
