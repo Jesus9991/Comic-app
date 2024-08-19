@@ -12,6 +12,8 @@ class ShimmerHomeComponents extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return ListView(
+      physics: const BouncingScrollPhysics(),
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       padding: EdgeInsets.symmetric(
           horizontal: size.width * .0, vertical: size.height * .0),
       children: [
@@ -36,6 +38,56 @@ class ShimmerHomeComponents extends StatelessWidget {
         SizedBox(height: size.height * .06),
         const CardShimmerComponents(),
       ],
+    );
+  }
+}
+
+/*
+shimmer para las listas verticales, ej. para ver todos los comics
+*/
+class ShimmerAllListComponents extends StatelessWidget {
+  const ShimmerAllListComponents({
+    super.key,
+  });
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return SliverPadding(
+      padding: EdgeInsets.only(right: size.width * .5, left: size.width * .04),
+      sliver: SliverList(
+          delegate: SliverChildListDelegate([
+        const CardVerticalCardComponets(),
+        SizedBox(height: size.height * .02),
+        const CardVerticalCardComponets(),
+        SizedBox(height: size.height * .02),
+        const CardVerticalCardComponets(),
+        SizedBox(height: size.height * .02),
+      ])),
+    );
+  }
+}
+
+class CardVerticalCardComponets extends StatelessWidget {
+  const CardVerticalCardComponets({super.key});
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Shimmer.fromColors(
+      baseColor: PaletteColorsTheme.greyBlackTwo.withOpacity(0.8),
+      highlightColor: PaletteColorsTheme.greyColor.withOpacity(0.1),
+      enabled: true,
+      child: SizedBox(
+        height: size.height * .3,
+        width: size.width * .2,
+        child: Container(
+          height: size.height,
+          width: size.width * .4,
+          decoration: BoxDecoration(
+            color: PaletteColorsTheme.greyBlackTwo.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+      ),
     );
   }
 }

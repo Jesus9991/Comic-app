@@ -74,9 +74,7 @@ class _AllComicsRecentScreenState extends State<AllComicsRecentScreen> {
           slivers: [
             const AppBarHomeComponents(title: 'Comics'),
             if (comics.isInitialLoading)
-              const SliverToBoxAdapter(
-                child: Center(child: CircularProgressIndicator.adaptive()),
-              )
+              const ShimmerAllListComponents()
             else
               comics.cachedComics == null || comics.cachedComics!.isEmpty
                   ? const SliverToBoxAdapter(
@@ -95,8 +93,7 @@ class _AllComicsRecentScreenState extends State<AllComicsRecentScreen> {
                             SizedBox(height: size.height * .04),
                         itemBuilder: (context, index) {
                           if (index == widget.dataPrv.cachedComics!.length) {
-                            return const Center(
-                                child: CircularProgressIndicator.adaptive());
+                            return const LoadingAppComponents();
                           }
                           final comic = widget.dataPrv.cachedComics?[index];
                           return CardAllComicsAndCharacterComponents(

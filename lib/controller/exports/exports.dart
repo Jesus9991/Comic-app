@@ -1,3 +1,4 @@
+export 'package:comic_app/view/components/loading_app_components.dart';
 export 'package:comic_app/view/components/refresh_components.dart';
 export 'package:comic_app/view/widgets/snackbar_app_widgets.dart';
 export 'package:comic_app/models/list_all_comics_models.dart';
