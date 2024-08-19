@@ -26,8 +26,9 @@ class ObteinValueApi {
   }
 
   //#3 obtiene la lista de personajes en el home
-  static String getListCharactersHome(String limit) {
-    return '${ApiRestPath.httpDomain}${ApiRestPath.characters}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,aliases,description,image,name,origin,publisher,date_added,real_name&limit=$limit&error="OK"';
+  static String getListCharactersHome(String limit,
+      {String currentPage = '10'}) {
+    return '${ApiRestPath.httpDomain}${ApiRestPath.characters}?api_key=${ApiRestPath.apiKey}&format=${ApiRestPath.formatKey}&field_list=id,aliases,description,image,name,origin,publisher,date_added,real_name&limit=$limit&number_of_page_results=$currentPage&error="OK"';
   }
 
   static String getListAllComics(String currentPage) {

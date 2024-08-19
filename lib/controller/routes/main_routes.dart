@@ -9,7 +9,6 @@ class MainRoutes {
   static const homeRoute = '/home_route';
   static const charactersRoute = '/characters_route';
   static const profileRoute = '/profile_route';
-  static const allCharacterRoute = '/all_character_route';
 
   static Map<String, Widget Function(BuildContext)> routes = {
     /*-----RUTA INICIAL------*/
@@ -18,6 +17,5 @@ class MainRoutes {
     homeRoute: (_) => const HomeAppScreen(),
     charactersRoute: (_) => const CharactersAppScreen(),
     profileRoute: (_) => const ProfileAppScreen(),
-    allCharacterRoute: (_) => const AllCharactersScreen(),
   };
 }

@@ -1,4 +1,5 @@
 import 'package:comic_app/controller/exports/exports.dart';
+import 'package:comic_app/controller/exports/screen_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,6 +9,7 @@ class CharactersAppScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final prvList = Provider.of<HomeAppProvider>(context);
+    final heroPrv = Provider.of<ListAllCharacterProviders>(context);
     return ScaffoldUpBlurEffectWidget(
       child: CustomScrollView(
         physics: const BouncingScrollPhysics(),
@@ -24,9 +26,13 @@ class CharactersAppScreen extends StatelessWidget {
               title: 'Personajes',
               onTap: () {
                 /*navega a ver la lista de todos los personajes*/
-                Navigator.pushNamed(
+                Navigator.push(
                   context,
-                  MainRoutes.allCharacterRoute,
+                  MaterialPageRoute(
+                    builder: (context) => AllCharactersScreen(
+                      dataPrv: heroPrv,
+                    ),
+                  ),
                 );
               },
             ),

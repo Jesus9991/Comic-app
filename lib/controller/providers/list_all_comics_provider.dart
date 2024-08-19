@@ -71,17 +71,13 @@ class ListAllComicsProvider extends ChangeNotifier {
               .map((comic) => ListAllComicsModels.fromJson(comic))
               .toList();
 
-          for (var element in comicsList) {
-            print('todos: los ids: ${element.id}');
-          }
-
           if (loadMore) {
             _cachedComics!.addAll(comicsList);
           } else {
             _cachedComics = comicsList;
           }
 
-          log("Cached comics length: ${_cachedComics?.length}"); // Verificar longitud de _cachedComics
+          log("Cached comics length: ${_cachedComics?.length}"); // verifica la longitud de _cachedComics
 
           if (comicsList.length < 10) {
             _hasMoreComics = false;

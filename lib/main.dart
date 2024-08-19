@@ -17,6 +17,9 @@ class ProvidersApps extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => HomeAppProvider()),
         ChangeNotifierProvider(
             create: (context) => ListAllComicsProvider(context)),
+        //lista de todos los personajes
+        ChangeNotifierProvider(
+            create: (context) => ListAllCharacterProviders()),
       ],
       child: const BlocksProviders(),
     );

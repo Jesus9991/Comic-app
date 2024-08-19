@@ -28,13 +28,13 @@ class _AllComicsRecentScreenState extends State<AllComicsRecentScreen> {
   void initState() {
     super.initState();
     fetchComics();
-
+    /*al hacer scroll obtiene más datos */
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
         if (widget.dataPrv.hasMoreComics &&
             !widget.dataPrv.isLoadingMoreComics) {
-          widget.dataPrv.loadMoreComics(context); // Utiliza loadMoreComics
+          widget.dataPrv.loadMoreComics(context);
         }
       }
     });
@@ -47,9 +47,9 @@ class _AllComicsRecentScreenState extends State<AllComicsRecentScreen> {
     super.dispose();
   }
 
+  /*petición para obtener los datos de entrada */
   void fetchComics({bool loadMore = false}) async {
-    await widget.dataPrv
-        .getListAllComics(context, loadMore: loadMore); // Corregir el argumento
+    await widget.dataPrv.getListAllComics(context, loadMore: loadMore);
   }
 
   Future<void> _onRefresh() async {

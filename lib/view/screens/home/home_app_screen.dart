@@ -13,6 +13,7 @@ class HomeAppScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final comics = Provider.of<ListAllComicsProvider>(context);
+    final heroPrv = Provider.of<ListAllCharacterProviders>(context);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -74,9 +75,13 @@ class HomeAppScreen extends StatelessWidget {
                           title: 'Personajes',
                           onTap: () {
                             /*navega a ver la lista de todos los personajes*/
-                            Navigator.pushNamed(
+                            Navigator.push(
                               context,
-                              MainRoutes.allCharacterRoute,
+                              MaterialPageRoute(
+                                builder: (context) => AllCharactersScreen(
+                                  dataPrv: heroPrv,
+                                ),
+                              ),
                             );
                           },
                         ),
